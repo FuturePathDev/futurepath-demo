@@ -1,0 +1,45 @@
+import os
+import zipfile
+
+project_structure = {
+    "futurepath-main": [
+        "public/index.html",
+        "src/App.js",
+        "src/index.js",
+        "src/assets/logo.png",
+        "src/components/Signup.js",
+        "src/components/Dashboard.js",
+        "README.md",
+        "package.json"
+    ]
+}
+
+base_path = "/mnt/data"
+for root, files in project_structure.items():
+    for file in files:
+        full_path = os.path.join(base_path, root, file)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, "w") as f:
+            if file == "README.md":
+                f.write("# FuturePath\n\nA college and career planning platform for students and parents.\n\n## Features\n- Student & Parent Dashboards\n- Career Assessment Tool\n- Mentorship Integration\n- Financial Planning\n\n## Setup\n```bash\nnpm install\nnpm start\n```\n")
+            elif file == "package.json":
+                f.write('{\n  "name": "futurepath-main",\n  "version": "1.0.0",\n  "private": true,\n  "dependencies": {\n    "react": "^18.0.0",\n    "react-dom": "^18.0.0",\n    "react-scripts": "5.0.0"\n  },\n  "scripts": {\n    "start": "react-scripts start",\n    "build": "react-scripts build"\n  }\n}')
+            elif file.endswith(".js"):
+                if "App.js" in file:
+                    f.write("import React from 'react';\nimport './App.css';\nfunction App() {\n  return <div>Welcome to FuturePath</div>;\n}\nexport default App;")
+                elif "index.js" in file:
+                    f.write("import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './App';\nReactDOM.render(<App />, document.getElementById('root'));")
+                else:
+                    f.write(f"// {file} content placeholder")
+            elif file.endswith(".html"):
+                f.write("<!DOCTYPE html><html><head><title>FuturePath</title></head><body><div id='root'></div></body></html>")
+            else:
+                f.write("")
+
+zip_path = os.path.join(base_path, "futurepath-main.zip")
+with zipfile.ZipFile(zip_path, 'w') as zipf:
+    for root, dirs, files in os.walk(os.path.join(base_path, "futurepath-main")):
+        for file in files:
+            filepath = os.path.join(root, file)
+            zipf.write(filepath, os.path.relpath(filepath, os.path.join(base_path, "futurepath-main")))
+zip_path
