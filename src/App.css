@@ -1,0 +1,3 @@
+app_css_path = os.path.join(src_path, "App.css")
+with open(app_css_path, "w") as f:
+    f.write(app_css)
