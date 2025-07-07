@@ -1,6 +1,20 @@
-import React from 'react';
-import './App.css';
-function App() {
-  return <div>Welcome to FuturePath</div>;
+body {
+  font-family: 'Raleway', sans-serif;
+  background: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  color: #003B5C;
 }
-export default App;
+
+.app-header {
+  background: linear-gradient(135deg, #00bcd4, #00796b);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 1rem;
+}
