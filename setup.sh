@@ -1,3 +1,9 @@
-git add setup.sh
-git commit -m "Add setup script for Codex"
-git push origin main
+#!/bin/bash
+set -e
+set -x
+node -v
+npm -v
+if [ -f package.json ]; then
+  npm install
+fi
+npm run build
