@@ -1,10 +1,3 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/src/components/Signup.js b/src/components/Signup.js
-index 564d6205437ce0211e202ddaf3ba929f4819f025..092a9a110f817c594b72a78854a3d1ac0b6b288a 100644
---- a/src/components/Signup.js
-+++ b/src/components/Signup.js
-@@ -1 +1,281 @@
--// src/components/Signup.js content placeholder
 +import React, { useState } from 'react';
 +
 +const initialState = {
