@@ -6,3 +6,4 @@ test('renders FuturePath welcome message', () => {
   render(<App />);
   const welcomeText = screen.getByText(/Welcome to FuturePath/i);
   expect(welcomeText).toBeInTheDocument();
+});
