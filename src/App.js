@@ -1,29 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StudentDashboard from "./StudentDashboard";
 
 const App = () => {
+  const [student, setStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStudentProfile = async () => {
+      try {
+        const response = await fetch("arn:aws:apigateway:us-east-1::/apis/knntu7ft1l/routes/emx0yhp");
+        const result = await response.json();
+
+        if (response.ok) {
+          setStudent(result); // Expecting your API to return full student object
+        } else {
+          throw new Error(result.error || "Failed to load profile");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudentProfile();
+  }, []);
+
   return (
     <Router>
       <Routes>
         <Route
           path="/student/dashboard"
           element={
-            <StudentDashboard
-              student={{
-                name: "Test Student",
-                profile: {
-                  grade: "11",
-                  school: "FuturePath High",
-                  district: "FuturePath District",
-                  careerInterest: ["Engineering", "Design"],
-                },
-                dashboard: {
-                  nextStep: "Complete Career Assessment",
-                  completedSteps: ["Signed Up", "Set Goals"],
-                },
-              }}
-            />
+            loading ? (
+              <div className="text-center p-10">Loading student profile...</div>
+            ) : error ? (
+              <div className="text-center p-10 text-red-600">Error: {error}</div>
+            ) : (
+              <StudentDashboard student={student} />
+            )
           }
         />
         <Route
@@ -43,6 +60,4 @@ const App = () => {
 };
 
 export default App;
-
-fetch("https://your-api-id.execute-api.us-east-2.amazonaws.com/student/profile")
 
