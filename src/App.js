@@ -11,7 +11,7 @@ function App() {
         const session = await Auth.currentSession();
         const token = session.getIdToken().getJwtToken();
 
-        const res = await fetch("https://your-api-id.execute-api.us-east-2.amazonaws.com/student/profile", {
+        const res = await fetch(https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev, {
           headers: {
             Authorization: token
           }
