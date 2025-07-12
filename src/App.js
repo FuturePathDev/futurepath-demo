@@ -1,35 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StudentDashboard from "./StudentDashboard";
-import { Auth } from "aws-amplify";
 
 function App() {
-  const [student, setStudent] = useState(null);
-
-  useEffect(() => {
-    const fetchStudentProfile = async () => {
-      try {
-        const session = await Auth.currentSession();
-        const token = session.getIdToken().getJwtToken();
-
-        const res = await fetch(https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev, {
-          headers: {
-            Authorization: token
+  return (
+    <Router>
+      <Routes>
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route
+          path="*"
+          element={
+            <div className="p-8 text-center text-gray-800">
+              <h1 className="text-3xl font-bold">FuturePath App</h1>
+              <p className="mt-4">Welcome! Use the student dashboard route to begin.</p>
+            </div>
           }
-        });
-
-        const data = await res.json();
-        setStudent(data);
-      } catch (err) {
-        console.error("Failed to fetch student profile:", err);
-      }
-    };
-
-    fetchStudentProfile();
-  }, []);
-
-  if (!student) return <div>Loading...</div>;
-
-  return <StudentDashboard student={student} />;
+        />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
+
