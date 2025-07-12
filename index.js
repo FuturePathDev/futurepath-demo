@@ -7,3 +7,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+npm install aws-amplify
