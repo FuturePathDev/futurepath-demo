@@ -23,4 +23,5 @@ function App() {
 }
 
 export default App;
+fetch("https://your-api-id.execute-api.us-east-2.amazonaws.com/student/profile")
 
