@@ -8,3 +8,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 npm install aws-amplify
+npm install
+
