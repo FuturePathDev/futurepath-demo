@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import StudentDashboard from "./StudentDashboard.jsx";
+import StudentDashboard from './StudentDashboard';
 
 
 function App() {
