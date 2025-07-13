@@ -8,7 +8,7 @@ const App = () => {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await fetch("https://your-api-id.execute-api.us-east-2.amazonaws.com/student/profile"); // Replace this with your real API Gateway URL
+        const response = await fetch("https://your-api-id.execute-api.us-east-2.amazonaws.com/student/profile"); 
         const data = await response.json();
         setStudent(data); // ✅ Missing semicolon added here
       } catch (error) {
