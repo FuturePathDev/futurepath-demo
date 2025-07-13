@@ -4,7 +4,7 @@ const StudentDashboard = () => {
     const [student, setStudent] = useState(null);
 
     useEffect(() => {
-        fetch("https://your-api-id.execute-api.us-east-1.amazonaws.com/student/profile")
+        fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev/student/profile")
             .then((res) => res.json())
             .then((data) => setStudent(data));
     }, []);
