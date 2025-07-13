@@ -8,7 +8,7 @@ const App = () => {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await fetch("https://your-api-id.execute-api.us-east-2.amazonaws.com/student/profile"); // Replace with your real API URL
+        const response = await fetch("arn:aws:apigateway:us-east-1::/apis/knntu7ft1l/routes/emx0yhp"); // Replace with your real API URL
         const data = await response.json();
         setStudent(data);
       } catch (error) {
