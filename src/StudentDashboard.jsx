@@ -4,8 +4,7 @@ const StudentDashboard = () => {
     const [student, setStudent] = useState(null);
 
     useEffect(() => {
-        https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev/StudentProfile
-
+        fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev/StudentProfile")
             .then((res) => res.json())
             .then((data) => setStudent(data));
     }, []);
@@ -47,4 +46,3 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
-
