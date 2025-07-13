@@ -36,4 +36,7 @@ const App = () => {
 
 export default App;
 
+git add .
+git commit -m "Connected student dashboard to live Lambda API"
+git push origin main
 
