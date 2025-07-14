@@ -6,7 +6,10 @@ const StudentDashboard = () => {
     useEffect(() => {
         fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev/StudentProfile")
             .then((res) => res.json())
-            .then((data) => setStudent(data));
+            .then((data) => {
+                console.log("Fetched student data:", data);
+                setStudent(data);
+            });
     }, []);
 
     if (!student) {
@@ -23,26 +26,4 @@ const StudentDashboard = () => {
                         <p><strong>Grade:</strong> {student.profile.grade || "Not set"}</p>
                         <p><strong>School:</strong> {student.profile.school || "Not set"}</p>
                         <p><strong>District:</strong> {student.profile.district || "Not set"}</p>
-                        <p><strong>Career Interests:</strong> {student.profile.careerInterest?.join(", ") || "None yet"}</p>
-                    </div>
-                    <div className="bg-green-100 p-4 rounded-xl">
-                        <h2 className="font-semibold text-lg mb-2">Dashboard Progress</h2>
-                        <p><strong>Next Step:</strong> {student.dashboard.nextStep}</p>
-                        <p><strong>Completed Steps:</strong></p>
-                        <ul className="list-disc list-inside">
-                            {student.dashboard.completedSteps?.length > 0 ? (
-                                student.dashboard.completedSteps.map((step, idx) => (
-                                    <li key={idx}>{step}</li>
-                                ))
-                            ) : (
-                                <li>None yet</li>
-                            )}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default StudentDashboard;
+                        <p><strong>Career Interests:</strong> {student.profile.career
