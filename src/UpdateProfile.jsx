@@ -12,12 +12,19 @@ const UpdateProfile = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Updated Profile Data:", formData);
-        // Later: send this to DynamoDB through API
-        alert("Profile updated successfully!");
-    };
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/dev/StudentProfile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    });
+
+    // Navigate to the dashboard after update
+    window.location.href = "/student-dashboard";
+};
+
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-8 font-raleway text-white">
