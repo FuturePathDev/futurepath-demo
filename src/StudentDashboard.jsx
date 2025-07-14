@@ -7,8 +7,7 @@ const StudentDashboard = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/student/profile");
-
+                const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/StudentProfile");
                 const data = await response.json();
                 setStudent(data);
             } catch (error) {
