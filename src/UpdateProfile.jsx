@@ -1,128 +1,91 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
+    const [grade, setGrade] = useState("");
+    const [school, setSchool] = useState("");
+    const [district, setDistrict] = useState("");
+    const [careerInterest, setCareerInterest] = useState("");
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        id: "student123",
-        name: "Jordan Taylor",
-        grade: "",
-        school: "",
-        district: "",
-        careerInterest: "",
-    });
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/StudentProfile");
-                const data = await response.json();
-                setFormData({
-                    id: data.id || "student123",
-                    name: data.name || "Jordan Taylor",
-                    grade: data.profile.grade || "",
-                    school: data.profile.school || "",
-                    district: data.profile.district || "",
-                    careerInterest: (data.profile.careerInterest || []).join(", "),
-                });
-            } catch (error) {
-                console.error("Failed to load profile:", error);
-            }
-        };
-        fetchProfile();
-    }, []);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const payload = {
-            id: formData.id,
-            name: formData.name,
-            profile: {
-                grade: formData.grade,
-                school: formData.school,
-                district: formData.district,
-                careerInterest: formData.careerInterest.split(",").map(item => item.trim()),
-            },
-            dashboard: {
-                nextStep: "Continue exploring career options",
-                completedSteps: ["Create profile", "Update profile"],
-            }
-        };
-
         try {
             const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/StudentProfile", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: "student123",
+                    grade,
+                    school,
+                    district,
+                    careerInterest: [careerInterest],
+                }),
             });
 
-            const responseData = await response.text();
+            const data = await response.json();
+
             if (response.ok) {
                 alert("Profile updated successfully!");
                 navigate("/");
             } else {
-                console.error("Response Status:", response.status);
-                console.error("Response Body:", responseData);
-                alert(`Failed to update profile: ${response.status} - ${responseData}`);
+                alert("An error occurred while updating your profile.");
+                console.error(data);
             }
         } catch (error) {
-            console.error("Update failed:", error);
-            alert("An unexpected error occurred while updating your profile.");
+            console.error("Error submitting profile:", error);
+            alert("An error occurred.");
         }
     };
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-8 font-raleway text-white">
-            <div className="max-w-xl mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-8">
-                <h1 className="text-2xl font-bold mb-4">Update Your Profile</h1>
+            <div className="max-w-lg mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-8">
+                <h1 className="text-3xl font-bold mb-4">Update Your Profile</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700">Grade:</label>
+                        <label className="block mb-1 font-semibold">Grade</label>
                         <input
                             type="text"
-                            name="grade"
-                            value={formData.grade}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
+                            value={grade}
+                            onChange={(e) => setGrade(e.target.value)}
+                            className="w-full p-2 rounded border border-gray-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">School:</label>
+                        <label className="block mb-1 font-semibold">School</label>
                         <input
                             type="text"
-                            name="school"
-                            value={formData.school}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
+                            value={school}
+                            onChange={(e) => setSchool(e.target.value)}
+                            className="w-full p-2 rounded border border-gray-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">District:</label>
+                        <label className="block mb-1 font-semibold">District</label>
                         <input
                             type="text"
-                            name="district"
-                            value={formData.district}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
+                            value={district}
+                            onChange={(e) => setDistrict(e.target.value)}
+                            className="w-full p-2 rounded border border-gray-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Career Interests (comma-separated):</label>
+                        <label className="block mb-1 font-semibold">Career Interests (comma separated)</label>
                         <input
                             type="text"
-                            name="careerInterest"
-                            value={formData.careerInterest}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
+                            value={careerInterest}
+                            onChange={(e) => setCareerInterest(e.target.value)}
+                            className="w-full p-2 rounded border border-gray-300"
                         />
                     </div>
-                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition">
-                        Save Changes
+                    <button
+                        type="submit"
+                        className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Save
                     </button>
                 </form>
             </div>
