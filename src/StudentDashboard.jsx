@@ -1,136 +1,75 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const UpdateProfile = () => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        id: "student123",
-        name: "Jordan Taylor",
-        grade: "",
-        school: "",
-        district: "",
-        careerInterest: "",
-    });
+const StudentDashboard = () => {
+    const [student, setStudent] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchProfile = async () => {
+        const fetchStudentProfile = async () => {
             try {
                 const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/student/profile");
                 const data = await response.json();
-                setFormData({
-                    id: data.id || "student123",
-                    name: data.name || "Jordan Taylor",
-                    grade: data.profile?.grade || "",
-                    school: data.profile?.school || "",
-                    district: data.profile?.district || "",
-                    careerInterest: (data.profile?.careerInterest || []).join(", "),
-                });
+                setStudent(data);
             } catch (error) {
-                console.error("Failed to load profile:", error);
+                console.error("Error fetching student profile:", error);
+            } finally {
+                setLoading(false);
             }
         };
-        fetchProfile();
+        fetchStudentProfile();
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+    if (loading) {
+        return <div className="p-8 font-raleway text-white">Loading...</div>;
+    }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const payload = {
-            id: formData.id,
-            name: formData.name,
-            profile: {
-                grade: formData.grade,
-                school: formData.school,
-                district: formData.district,
-                careerInterest: formData.careerInterest.split(",").map(item => item.trim()),
-            },
-            dashboard: {
-                nextStep: "Continue exploring career options",
-                completedSteps: ["Create profile", "Update profile"],
-            }
-        };
+    if (!student || !student.profile) {
+        return <div className="p-8 font-raleway text-white">Student profile not found.</div>;
+    }
 
-        try {
-            const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/StudentProfile", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
-            if (response.ok) {
-                alert("Profile updated successfully!");
-                navigate("/");
-            } else {
-                alert("Failed to update profile.");
-            }
-        } catch (error) {
-            console.error("Update failed:", error);
-            alert("An error occurred while updating your profile.");
-        }
-    };
+    const { name, profile, dashboard } = student;
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-8 font-raleway text-white">
-            <div className="max-w-xl mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-8">
-                <h1 className="text-2xl font-bold mb-4">Update Your Profile</h1>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-gray-700">Grade:</label>
-                        <input
-                            type="text"
-                            name="grade"
-                            value={formData.grade}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-gray-700">School:</label>
-                        <input
-                            type="text"
-                            name="school"
-                            value={formData.school}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-gray-700">District:</label>
-                        <input
-                            type="text"
-                            name="district"
-                            value={formData.district}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-gray-700">Career Interests (comma-separated):</label>
-                        <input
-                            type="text"
-                            name="careerInterest"
-                            value={formData.careerInterest}
-                            onChange={handleChange}
-                            className="w-full p-2 rounded border"
-                        />
-                    </div>
-                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition w-full">
-                        Save Changes
-                    </button>
-                </form>
+            <div className="max-w-4xl mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-8">
+                <h1 className="text-3xl font-bold mb-4">Welcome, {name || "Student"}</h1>
 
-                <button
-                    onClick={() => navigate("/")}
-                    className="mt-4 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
-                >
-                    Back to Dashboard
-                </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-blue-100 p-4 rounded-xl">
+                        <h2 className="font-semibold text-lg mb-2">Your Profile</h2>
+                        <p><strong>Grade:</strong> {profile.grade || "Not set"}</p>
+                        <p><strong>School:</strong> {profile.school || "Not set"}</p>
+                        <p><strong>District:</strong> {profile.district || "Not set"}</p>
+                        <p><strong>Career Interests:</strong> {profile.careerInterest?.join(", ") || "None yet"}</p>
+                    </div>
+
+                    <div className="bg-green-100 p-4 rounded-xl">
+                        <h2 className="font-semibold text-lg mb-2">Dashboard Progress</h2>
+                        <p><strong>Next Step:</strong> {dashboard.nextStep}</p>
+                        <p><strong>Completed Steps:</strong></p>
+                        <ul className="list-disc list-inside">
+                            {dashboard.completedSteps?.length > 0 ? (
+                                dashboard.completedSteps.map((step, idx) => (
+                                    <li key={idx}>{step}</li>
+                                ))
+                            ) : (
+                                <li>None yet</li>
+                            )}
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="mt-6">
+                    <Link to="/update-profile">
+                        <button className="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition">
+                            Update Profile
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     );
 };
 
-export default UpdateProfile;
+export default StudentDashboard;
