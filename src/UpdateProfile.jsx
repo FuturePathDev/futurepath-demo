@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "student123",
         name: "Jordan Taylor",
@@ -60,7 +62,7 @@ const UpdateProfile = () => {
             });
             if (response.ok) {
                 alert("Profile updated successfully!");
-                window.location.href = "/";
+                navigate("/"); // Proper React Router navigation
             } else {
                 alert("Failed to update profile.");
             }
@@ -120,7 +122,7 @@ const UpdateProfile = () => {
                     </button>
                 </form>
                 <button
-                    onClick={() => window.location.href = "/"}
+                    onClick={() => navigate("/")}
                     className="mt-4 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
                 >
                     Back to Dashboard
