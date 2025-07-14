@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const StudentDashboard = () => {
     const [student, setStudent] = useState(null);
@@ -28,9 +29,11 @@ const StudentDashboard = () => {
                         <p><strong>School:</strong> {student.profile.school || "Not set"}</p>
                         <p><strong>District:</strong> {student.profile.district || "Not set"}</p>
                         <p><strong>Career Interests:</strong> {student.profile.careerInterest?.join(", ") || "None yet"}</p>
-                        <button className="mt-4 bg-teal-500 text-white px-4 py-2 rounded-xl hover:bg-teal-600 transition">
-                            Update Profile
-                        </button>
+                        <Link to="/update-profile">
+                            <button className="mt-4 bg-teal-500 text-white px-4 py-2 rounded-xl hover:bg-teal-600 transition">
+                                Update Profile
+                            </button>
+                        </Link>
                     </div>
 
                     <div className="bg-green-100 p-6 rounded-xl shadow">
