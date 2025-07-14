@@ -55,7 +55,7 @@ const UpdateProfile = () => {
         };
 
         try {
-            const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/student/profile", {
+            const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/StudentProfile", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
