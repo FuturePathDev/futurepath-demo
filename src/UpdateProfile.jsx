@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+console.log("UpdateProfile component is loaded.");
 
 const UpdateProfile = () => {
     const [formData, setFormData] = useState({
