@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+<Link to="/update-profile">
+    <button className="mt-4 bg-teal-500 text-white px-4 py-2 rounded-xl hover:bg-teal-600 transition">
+        Update Your Profile
+    </button>
+</Link>
+
 const StudentDashboard = () => {
     const [student, setStudent] = useState(null);
 
