@@ -131,5 +131,3 @@ const UpdateProfile = () => {
         </div>
     );
 };
-
-export default UpdateProfile;
