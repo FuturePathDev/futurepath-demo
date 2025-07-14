@@ -15,15 +15,15 @@ const UpdateProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/StudentProfile");
+                const response = await fetch("https://knntu7ft1l.execute-api.us-east-1.amazonaws.com/student/profile");
                 const data = await response.json();
                 setFormData({
                     id: data.id || "student123",
                     name: data.name || "Jordan Taylor",
-                    grade: data.profile.grade || "",
-                    school: data.profile.school || "",
-                    district: data.profile.district || "",
-                    careerInterest: (data.profile.careerInterest || []).join(", "),
+                    grade: data.profile?.grade || "",
+                    school: data.profile?.school || "",
+                    district: data.profile?.district || "",
+                    careerInterest: (data.profile?.careerInterest || []).join(", "),
                 });
             } catch (error) {
                 console.error("Failed to load profile:", error);
@@ -117,10 +117,17 @@ const UpdateProfile = () => {
                             className="w-full p-2 rounded border"
                         />
                     </div>
-                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition">
+                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition w-full">
                         Save Changes
                     </button>
                 </form>
+
+                <button
+                    onClick={() => navigate("/")}
+                    className="mt-4 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    Back to Dashboard
+                </button>
             </div>
         </div>
     );
