@@ -88,6 +88,13 @@ const UpdateProfile = () => {
                         Save
                     </button>
                 </form>
+
+                <button
+                    onClick={() => navigate("/")}
+                    className="mt-4 w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    Back to Dashboard
+                </button>
             </div>
         </div>
     );
