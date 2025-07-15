@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DashboardLayout from "./components/DashboardLayout";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import StudentDashboard from "./StudentDashboard";
 import UpdateProfile from "./UpdateProfile";
 import CareerCharts from "./components/CareerCharts";
+import DashboardLayout from "./components/DashboardLayout";
 
 function App() {
     return (
@@ -33,6 +33,7 @@ function App() {
                         </DashboardLayout>
                     }
                 />
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
     );
