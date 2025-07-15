@@ -1,28 +1,34 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from "recharts";
 
 const data = [
-    { career: "Software Engineer", salary: 120000 },
-    { career: "Data Scientist", salary: 115000 },
-    { career: "Nurse Practitioner", salary: 110000 },
-    { career: "Product Manager", salary: 105000 },
-    { career: "Financial Analyst", salary: 90000 },
+  { name: "Engineering", value: 120000 },
+  { name: "Medicine", value: 110000 },
+  { name: "Law", value: 90000 },
+  { name: "Technology", value: 130000 },
 ];
 
-const CareerCharts = () => {
-    return (
-        <div className="bg-white rounded-lg shadow-md p-4">
-            <h2 className="text-xl font-bold mb-4 text-gray-700">Top Lucrative Careers</h2>
-            <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={data} layout="vertical">
-                    <XAxis type="number" />
-                    <YAxis dataKey="career" type="category" />
-                    <Tooltip />
-                    <Bar dataKey="salary" fill="#14b8a6" />
-                </BarChart>
-            </ResponsiveContainer>
-        </div>
-    );
-};
+const ChartsPage = () => (
+  <div className="p-4">
+    <h1 className="text-2xl font-bold mb-4">Lucrative Careers</h1>
+    <BarChart width={600} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="value" fill="#8884d8" />
+    </BarChart>
+    <h2 className="text-xl font-semibold mt-8 mb-4">Career Trends Over Time</h2>
+    <LineChart width={600} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="value" stroke="#82ca9d" />
+    </LineChart>
+  </div>
+);
 
-export default CareerCharts;
+export default ChartsPage;
