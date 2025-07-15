@@ -32,10 +32,7 @@ const DashboardLayout = ({ children }) => {
 };
 
 export default DashboardLayout;
-🔧 Then, update App.js to wrap pages with this layout:
-javascript
-Copy
-Edit
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DashboardLayout from "./components/DashboardLayout";
