@@ -1,26 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import CareerCharts from './CareerCharts';
+import ProgressTracker from './ProgressTracker';
 
-const DashboardLayout = ({ student, children }) => {
+const DashboardLayout = () => {
     return (
-        <div className="flex min-h-screen">
-            <aside className="w-64 bg-gray-800 text-white p-4">
-                <h2 className="text-xl font-bold mb-4">FuturePath</h2>
-                <nav className="flex flex-col space-y-2">
-                    <Link to="/" className="hover:underline">Dashboard</Link>
-                    <Link to="/update-profile" className="hover:underline">Update Profile</Link>
-                    <Link to="/career-charts" className="hover:underline">Career Charts</Link>
+        <div className="flex h-screen">
+            {/* Sidebar */}
+            <div className="w-64 bg-gray-900 text-white flex flex-col p-4">
+                <h2 className="text-2xl font-bold mb-6">FuturePath</h2>
+                <nav className="flex flex-col space-y-4">
+                    <Link to="/" className="hover:text-gray-300">Dashboard</Link>
+                    <Link to="/update-profile" className="hover:text-gray-300">Update Profile</Link>
+                    <Link to="/" className="hover:text-gray-300">Career Charts</Link>
                 </nav>
-            </aside>
-            <main className="flex-1 p-6">
-                <header className="flex justify-end mb-4">
+            </div>
+
+            {/* Main content */}
+            <div className="flex-1 bg-gray-100 p-10">
+                <div className="flex justify-between items-center mb-8">
+                    <h1 className="text-3xl font-bold">Dashboard Overview</h1>
                     <div className="text-right">
-                        <p className="font-semibold">{student.name}</p>
-                        <p className="text-sm text-gray-500">Grade: {student.profile.grade}</p>
+                        <p className="text-lg font-semibold">Jordan Taylor</p>
+                        <p className="text-sm">Grade: 10th</p>
+                        <p className="text-sm">School: Jefferson High School</p>
                     </div>
-                </header>
-                {children}
-            </main>
+                </div>
+
+                <CareerCharts />
+                <ProgressTracker />
+            </div>
         </div>
     );
 };
