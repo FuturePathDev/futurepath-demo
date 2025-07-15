@@ -3,36 +3,29 @@ import { Link } from "react-router-dom";
 
 const DashboardLayout = ({ children }) => {
     return (
-        <div className="flex h-screen bg-gray-100 font-raleway">
-            {/* Sidebar */}
-            <aside className="w-64 bg-gradient-to-b from-teal-500 to-blue-700 text-white p-6 space-y-6">
-                <div className="text-2xl font-bold">FuturePath</div>
+        <div className="flex h-screen font-raleway bg-gradient-to-r from-blue-300 to-teal-200 text-gray-800">
+            <aside className="w-64 bg-white shadow-md flex flex-col p-6">
+                <h2 className="text-2xl font-bold mb-8">FuturePath</h2>
                 <nav className="flex flex-col space-y-4">
-                    <Link to="/" className="hover:bg-teal-600 p-2 rounded">Dashboard</Link>
-                    <Link to="/update-profile" className="hover:bg-teal-600 p-2 rounded">Update Profile</Link>
-                    <Link to="/charts" className="hover:bg-teal-600 p-2 rounded">Career Charts</Link>
+                    <Link to="/" className="hover:text-blue-600">Dashboard</Link>
+                    <Link to="/update-profile" className="hover:text-blue-600">Update Profile</Link>
+                    <Link to="/career-charts" className="hover:text-blue-600">Career Charts</Link>
                 </nav>
             </aside>
 
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-                {/* Top bar */}
-                <header className="flex justify-end items-center bg-white p-4 shadow-md">
-                    <div className="text-sm text-gray-600">
-                        <div>Jordan Taylor</div>
-                        <div>10th Grade</div>
-                        <div>Jefferson High School</div>
+            <div className="flex-1 flex flex-col p-10">
+                <div className="flex justify-end mb-8 text-right">
+                    <div>
+                        <p className="font-semibold">Jordan Taylor</p>
+                        <p>10th Grade</p>
+                        <p>Jefferson High School</p>
                     </div>
-                </header>
+                </div>
 
-                {/* Main Section */}
-                <main className="p-6 overflow-auto">{children}</main>
+                <main className="flex-1 overflow-y-auto">{children}</main>
             </div>
         </div>
     );
 };
 
 export default DashboardLayout;
-
-
-
