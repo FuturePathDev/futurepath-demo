@@ -1,51 +1,34 @@
 import React from "react";
+import LucrativeCareersChart from "./components/LucrativeCareersChart";
+import EsteemedSchoolsChart from "./components/EsteemedSchoolsChart";
+import SuggestedGoalsChart from "./components/SuggestedGoalsChart";
 import { Link } from "react-router-dom";
 
 const StudentDashboard = () => {
-    const student = {
-        name: "Jordan Taylor",
-        profile: {
-            grade: "10th",
-            school: "Jefferson High School",
-            district: "Salem-Keizer SD",
-            careerInterest: ["Software Developer", "Data Analyst"]
-        },
-        dashboard: {
-            nextStep: "Complete career assessment",
-            completedSteps: ["Create profile", "Choose avatar", "Set grade level"]
-        }
-    };
-
     return (
-        <div className="min-h-screen bg-gradient-to-r from-white to-gray-100 p-8 font-sans text-gray-800">
-            <div className="max-w-6xl mx-auto">
-                <h1 className="text-4xl font-bold mb-6">Welcome, {student.name}</h1>
+        <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-8 font-raleway text-white">
+            <div className="max-w-5xl mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-8 space-y-8">
+                <h1 className="text-3xl font-bold">Student Dashboard</h1>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white rounded-xl shadow-md p-6">
-                        <h2 className="text-xl font-semibold mb-2">Your Profile</h2>
-                        <p><strong>Grade:</strong> {student.profile.grade}</p>
-                        <p><strong>School:</strong> {student.profile.school}</p>
-                        <p><strong>District:</strong> {student.profile.district}</p>
-                        <p><strong>Career Interests:</strong> {student.profile.careerInterest.join(", ")}</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="bg-gray-100 p-4 rounded-xl">
+                        <LucrativeCareersChart />
                     </div>
+                    <div className="bg-gray-100 p-4 rounded-xl">
+                        <EsteemedSchoolsChart />
+                    </div>
+                    <div className="bg-gray-100 p-4 rounded-xl">
+                        <SuggestedGoalsChart />
+                    </div>
+                </div>
 
-                    <div className="bg-white rounded-xl shadow-md p-6">
-                        <h2 className="text-xl font-semibold mb-2">Progress Tracker</h2>
-                        <p><strong>Next Step:</strong> {student.dashboard.nextStep}</p>
-                        <ul className="list-disc pl-5">
-                            {student.dashboard.completedSteps.map((step, idx) => (
-                                <li key={idx}>{step}</li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between">
-                        <h2 className="text-xl font-semibold mb-4">Actions</h2>
-                        <Link to="/update-profile" className="bg-teal-500 text-white px-4 py-2 rounded text-center hover:bg-teal-600 transition">
-                            Update Profile
-                        </Link>
-                    </div>
+                <div className="mt-8">
+                    <Link
+                        to="/update-profile"
+                        className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Update Profile
+                    </Link>
                 </div>
             </div>
         </div>
