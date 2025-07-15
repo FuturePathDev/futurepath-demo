@@ -2,6 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import StudentDashboard from "./StudentDashboard";
 import UpdateProfile from "./UpdateProfile";
+import DashboardOverview from "./components/DashboardOverview";
+
+// Inside your routes
+<Route path="/dashboard" element={<DashboardOverview />} />
+
 
 function App() {
     return (
