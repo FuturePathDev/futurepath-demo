@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import ChartsPage from "./components/ChartsPage";
+import CareerCharts from './components/CareerCharts';
+
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/charts" element={<ChartsPage />} />
+                <Route path="/career-charts" element={<CareerCharts />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
