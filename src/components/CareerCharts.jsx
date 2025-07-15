@@ -1,24 +1,26 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 const data = [
-    { name: "Software Engineer", salary: 120000 },
-    { name: "Data Scientist", salary: 115000 },
-    { name: "Product Manager", salary: 110000 },
-    { name: "Cybersecurity Analyst", salary: 105000 },
-    { name: "AI Specialist", salary: 130000 },
+    { career: "Software Engineer", students: 120 },
+    { career: "Data Scientist", students: 90 },
+    { career: "Nurse", students: 80 },
+    { career: "Electrician", students: 70 },
+    { career: "Marketing Manager", students: 65 },
 ];
 
 const CareerCharts = () => {
     return (
-        <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-xl font-bold mb-4">Lucrative Careers</h2>
+        <div className="bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">Lucrative Careers of Interest</h2>
             <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={data}>
-                    <XAxis dataKey="name" />
+                <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="career" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="salary" fill="#1E3A8A" /> {/* Dark Blue */}
+                    <Legend />
+                    <Bar dataKey="students" fill="#1E3A8A" /> {/* Dark Blue */}
                 </BarChart>
             </ResponsiveContainer>
         </div>
