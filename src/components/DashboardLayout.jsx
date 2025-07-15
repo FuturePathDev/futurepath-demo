@@ -1,37 +1,82 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import CareerCharts from './CareerCharts';
-import ProgressTracker from './ProgressTracker';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ children }) => {
     return (
-        <div className="flex h-screen">
+        <div className="flex min-h-screen bg-gray-100">
             {/* Sidebar */}
-            <div className="w-64 bg-gray-900 text-white flex flex-col p-4">
-                <h2 className="text-2xl font-bold mb-6">FuturePath</h2>
-                <nav className="flex flex-col space-y-4">
-                    <Link to="/" className="hover:text-gray-300">Dashboard</Link>
-                    <Link to="/update-profile" className="hover:text-gray-300">Update Profile</Link>
-                    <Link to="/" className="hover:text-gray-300">Career Charts</Link>
+            <aside className="w-64 bg-white shadow-md p-6">
+                <h2 className="text-xl font-bold mb-6 text-blue-900">FuturePath</h2>
+                <nav className="space-y-4">
+                    <Link to="/" className="block text-gray-700 hover:text-blue-500">Dashboard</Link>
+                    <Link to="/update-profile" className="block text-gray-700 hover:text-blue-500">Update Profile</Link>
+                    <Link to="#" className="block text-gray-700 hover:text-blue-500">Career Charts</Link>
+                    <Link to="#" className="block text-gray-700 hover:text-blue-500">Progress Tracker</Link>
                 </nav>
-            </div>
+            </aside>
 
-            {/* Main content */}
-            <div className="flex-1 bg-gray-100 p-10">
-                <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold">Dashboard Overview</h1>
+            {/* Main Content */}
+            <main className="flex-1 p-10">
+                <header className="flex justify-end mb-6">
                     <div className="text-right">
-                        <p className="text-lg font-semibold">Jordan Taylor</p>
-                        <p className="text-sm">Grade: 10th</p>
-                        <p className="text-sm">School: Jefferson High School</p>
+                        <p className="font-semibold text-gray-800">Jordan Taylor</p>
+                        <p className="text-sm text-gray-500">10th Grade, Jefferson High School</p>
                     </div>
+                </header>
+                <div>
+                    {children}
                 </div>
-
-                <CareerCharts />
-                <ProgressTracker />
-            </div>
+            </main>
         </div>
     );
 };
 
 export default DashboardLayout;
+🔧 Then, update App.js to wrap pages with this layout:
+javascript
+Copy
+Edit
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DashboardLayout from "./components/DashboardLayout";
+import StudentDashboard from "./StudentDashboard";
+import UpdateProfile from "./UpdateProfile";
+import CareerCharts from "./components/CareerCharts";
+
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <DashboardLayout>
+                            <StudentDashboard />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/update-profile"
+                    element={
+                        <DashboardLayout>
+                            <UpdateProfile />
+                        </DashboardLayout>
+                    }
+                />
+                <Route
+                    path="/career-charts"
+                    element={
+                        <DashboardLayout>
+                            <CareerCharts />
+                        </DashboardLayout>
+                    }
+                />
+            </Routes>
+        </Router>
+    );
+}
+
+export default App;
+
+
+
