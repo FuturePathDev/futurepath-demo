@@ -3,37 +3,27 @@ import { Link } from "react-router-dom";
 
 const DashboardLayout = ({ children }) => {
     return (
-        <div className="flex min-h-screen bg-gradient-to-r from-blue-200 via-teal-200 to-blue-100 font-raleway">
-            {/* Sidebar */}
-            <aside className="w-64 bg-white shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-8">FuturePath</h2>
+        <div className="flex h-screen font-raleway bg-gradient-to-r from-teal-400 to-blue-300 text-gray-800">
+            <aside className="w-64 bg-white shadow-md p-6">
+                <h2 className="text-xl font-bold mb-6">FuturePath</h2>
                 <nav className="flex flex-col space-y-4">
-                    <Link to="/" className="text-blue-700 font-semibold hover:underline">
-                        Dashboard
-                    </Link>
-                    <Link to="/update-profile" className="text-blue-700 font-semibold hover:underline">
-                        Update Profile
-                    </Link>
-                    <Link to="/career-charts" className="text-blue-700 font-semibold hover:underline">
-                        Career Charts
-                    </Link>
+                    <Link to="/" className="hover:underline">Dashboard</Link>
+                    <Link to="/update-profile" className="hover:underline">Update Profile</Link>
+                    <Link to="/career-charts" className="hover:underline">Career Charts</Link>
                 </nav>
             </aside>
-
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-                {/* Top Info Bar */}
-                <header className="flex justify-end bg-white p-4 shadow-md">
+            <main className="flex-1 p-10">
+                <div className="flex justify-end mb-4">
                     <div className="text-right">
-                        <p className="font-semibold text-gray-700">Jordan Taylor</p>
-                        <p className="text-sm text-gray-500">10th Grade</p>
-                        <p className="text-sm text-gray-500">Jefferson High School</p>
+                        <p className="font-bold">Jordan Taylor</p>
+                        <p>10th Grade</p>
+                        <p>Jefferson High School</p>
                     </div>
-                </header>
-
-                {/* Main Page Content */}
-                <main className="p-8">{children}</main>
-            </div>
+                </div>
+                <div className="bg-white rounded-xl shadow p-8">
+                    {children}
+                </div>
+            </main>
         </div>
     );
 };
