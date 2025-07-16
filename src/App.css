@@ -3,6 +3,9 @@ body {
     font-family: 'Raleway', sans-serif;
     background: linear-gradient(to right, #a1c4fd, #c2e9fb);
     color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar {
@@ -15,13 +18,33 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; /* Sidebar is above the main content */
+    z-index: 1000;
 }
 
 .main-content {
     margin-left: 220px;
     padding: 20px;
     position: relative;
-    z-index: 1; /* Ensure main content is clickable */
+    z-index: 1;
 }
 
+.menu-item {
+    display: block;
+    margin: 10px 0;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-item:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.student-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    color: #333;
+}
