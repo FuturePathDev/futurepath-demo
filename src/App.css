@@ -2,31 +2,26 @@ body {
     margin: 0;
     font-family: 'Raleway', sans-serif;
     background: linear-gradient(to right, #a1c4fd, #c2e9fb);
-    min-height: 100vh;
+    color: #333;
 }
 
 .sidebar {
-    width: 200px;
-    background-color: #1a1a2e;
+    width: 220px;
+    background-color: #1e3a8a;
     color: white;
-    padding: 1rem;
     height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000; /* Sidebar is above the main content */
 }
 
-.content {
-    margin-left: 200px;
-    padding: 2rem;
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
     position: relative;
-}
-
-.top-right-info {
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-    color: #1a1a2e;
-    font-weight: bold;
+    z-index: 1; /* Ensure main content is clickable */
 }
 
