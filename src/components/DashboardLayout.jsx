@@ -1,29 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import CareerCharts from "./CareerCharts";
+import LucrativeCareersChart from "./LucrativeCareersChart";
+import EsteemedSchoolsChart from "./EsteemedSchoolsChart";
+import SuggestedGoalsChart from "./SuggestedGoalsChart";
+import ProgressTracker from "./ProgressTracker";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
     return (
-        <div className="flex h-screen font-raleway bg-gradient-to-r from-teal-400 to-blue-300 text-gray-800">
-            <aside className="w-64 bg-white shadow-md p-6">
-                <h2 className="text-xl font-bold mb-6">FuturePath</h2>
-                <nav className="flex flex-col space-y-4">
-                    <Link to="/" className="hover:underline">Dashboard</Link>
-                    <Link to="/update-profile" className="hover:underline">Update Profile</Link>
-                    <Link to="/career-charts" className="hover:underline">Career Charts</Link>
-                </nav>
-            </aside>
-            <main className="flex-1 p-10">
-                <div className="flex justify-end mb-4">
-                    <div className="text-right">
-                        <p className="font-bold">Jordan Taylor</p>
-                        <p>10th Grade</p>
-                        <p>Jefferson High School</p>
-                    </div>
+        <div>
+            <div className="sidebar">
+                <h2>Menu</h2>
+                <ul>
+                    <li>Dashboard</li>
+                    <li>Career Charts</li>
+                    <li>Schools</li>
+                    <li>Goals</li>
+                    <li>Progress</li>
+                </ul>
+            </div>
+            <div className="content">
+                <div className="top-right-info">
+                    Jordan Taylor | 10th Grade | Jefferson High School
                 </div>
-                <div className="bg-white rounded-xl shadow p-8">
-                    {children}
-                </div>
-            </main>
+                <h1>FuturePath Dashboard</h1>
+                <CareerCharts />
+                <LucrativeCareersChart />
+                <EsteemedSchoolsChart />
+                <SuggestedGoalsChart />
+                <ProgressTracker />
+            </div>
         </div>
     );
 };
