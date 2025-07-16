@@ -8,33 +8,14 @@ import DashboardLayout from "./components/DashboardLayout";
 function App() {
     return (
         <Router>
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <DashboardLayout>
-                            <StudentDashboard />
-                        </DashboardLayout>
-                    }
-                />
-                <Route
-                    path="/update-profile"
-                    element={
-                        <DashboardLayout>
-                            <UpdateProfile />
-                        </DashboardLayout>
-                    }
-                />
-                <Route
-                    path="/career-charts"
-                    element={
-                        <DashboardLayout>
-                            <CareerCharts />
-                        </DashboardLayout>
-                    }
-                />
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <DashboardLayout>
+                <Routes>
+                    <Route path="/" element={<StudentDashboard />} />
+                    <Route path="/update-profile" element={<UpdateProfile />} />
+                    <Route path="/career-charts" element={<CareerCharts />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+            </DashboardLayout>
         </Router>
     );
 }
