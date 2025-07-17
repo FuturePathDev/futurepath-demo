@@ -1,32 +1,58 @@
-import React from 'react';
+import React from "react";
 
 const Resources = () => {
-    const resources = [
-        { title: "FAFSA Application", link: "https://studentaid.gov/h/apply-for-aid/fafsa" },
-        { title: "Scholarship Search Tool", link: "https://www.fastweb.com/" },
-        { title: "CareerOneStop", link: "https://www.careeronestop.org/" },
-        { title: "College Board - Big Future", link: "https://bigfuture.collegeboard.org/" },
-        { title: "Trade Schools Directory", link: "https://www.trade-schools.net/" },
-    ];
-
     return (
-        <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-8 font-raleway text-white">
-            <div className="max-w-3xl mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-10">
-                <h1 className="text-3xl font-bold mb-6 text-center">Helpful Resources</h1>
-                <ul className="space-y-4">
-                    {resources.map((resource, index) => (
-                        <li key={index} className="p-4 bg-gray-100 rounded-lg shadow">
-                            <a
-                                href={resource.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-600 font-semibold hover:underline"
-                            >
-                                {resource.title}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
+        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-teal-100 to-blue-200 p-8 font-raleway">
+            <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-10">
+                <h1 className="text-4xl font-bold text-blue-800 mb-4">Educational Resources</h1>
+                <p className="mb-8 text-gray-600">
+                    Access trusted tools and programs to help guide your educational and career journey.
+                </p>
+
+                <div className="space-y-8">
+                    <div className="bg-blue-50 rounded-lg p-6 shadow">
+                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Scholarships & Grants</h2>
+                        <ul className="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Fastweb</li>
+                            <li>Scholarships.com</li>
+                            <li>College Board Scholarship Search</li>
+                            <li>UNCF Scholarships</li>
+                            <li>Thurgood Marshall College Fund</li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-lg p-6 shadow">
+                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Internships & Programs</h2>
+                        <ul className="list-disc list-inside text-gray-700 space-y-1">
+                            <li>LinkedIn Internships</li>
+                            <li>Handshake</li>
+                            <li>INROADS</li>
+                            <li>Google STEP & Engineering Practicum</li>
+                            <li>Microsoft LEAP Program</li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-lg p-6 shadow">
+                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Mentorship Programs</h2>
+                        <ul className="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Big Brothers Big Sisters</li>
+                            <li>College Mentoring Network</li>
+                            <li>Girls Who Code Mentorship</li>
+                            <li>iMentor</li>
+                            <li>America Needs You (ANY)</li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-lg p-6 shadow">
+                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Financial Aid Resources</h2>
+                        <ul className="list-disc list-inside text-gray-700 space-y-1">
+                            <li>FAFSA: Free Application for Federal Student Aid</li>
+                            <li>Federal Student Aid (studentaid.gov)</li>
+                            <li>CSS Profile (College Board)</li>
+                            <li>California Student Aid Commission (CSAC)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     );
