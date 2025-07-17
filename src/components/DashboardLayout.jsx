@@ -1,38 +1,26 @@
 import React from "react";
-import CareerCharts from "./CareerCharts";
-import ProgressTracker from "./ProgressTracker";
-import EsteemedSchoolsChart from "./EsteemedSchoolsChart";
-import LucrativeCareersChart from "./LucrativeCareersChart";
-import SuggestedGoalsChart from "./SuggestedGoalsChart";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DashboardLayout from "./components/DashboardLayout";
+import Dashboard from "./components/Dashboard";
+import Careers from "./components/Careers";
+import Schools from "./components/Schools";
+import Goals from "./components/Goals";
+import Progress from "./components/Progress";
 
-const DashboardLayout = () => {
+function App() {
     return (
-        <div style={{ display: "flex", height: "100vh", background: "linear-gradient(to right, #a1c4fd, #c2e9fb)" }}>
-            <aside className="sidebar">
-                <h2>FuturePath</h2>
-                <nav>
-                    <a href="#" className="menu-item">Dashboard</a>
-                    <a href="#" className="menu-item">Careers</a>
-                    <a href="#" className="menu-item">Schools</a>
-                    <a href="#" className="menu-item">Goals</a>
-                    <a href="#" className="menu-item">Progress</a>
-                </nav>
-            </aside>
-            <main className="main-content" style={{ flex: 1, padding: "20px" }}>
-                <div className="student-info">
-                    <p>Jordan Taylor</p>
-                    <p>10th Grade</p>
-                    <p>Jefferson High School</p>
-                </div>
-                <h1>Career Dashboard</h1>
-                <CareerCharts />
-                <EsteemedSchoolsChart />
-                <SuggestedGoalsChart />
-                <LucrativeCareersChart />
-                <ProgressTracker />
-            </main>
-        </div>
+        <Router>
+            <DashboardLayout>
+                <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/careers" element={<Careers />} />
+                    <Route path="/schools" element={<Schools />} />
+                    <Route path="/goals" element={<Goals />} />
+                    <Route path="/progress" element={<Progress />} />
+                </Routes>
+            </DashboardLayout>
+        </Router>
     );
-};
+}
 
-export default DashboardLayout;
+export default App;
