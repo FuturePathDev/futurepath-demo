@@ -1,9 +1,9 @@
-import React from 'react';
-import DashboardLayout from './DashboardLayout';
-import CareerCharts from './CareerCharts';
-import EsteemedSchoolsChart from './EsteemedSchoolsChart';
-import SuggestedGoalsChart from './SuggestedGoalsChart';
-import ProgressTracker from './ProgressTracker';
+import React from "react";
+import DashboardLayout from "./DashboardLayout";
+import CareerCharts from "./CareerCharts";
+import EsteemedSchoolsChart from "./EsteemedSchoolsChart";
+import SuggestedGoalsChart from "./SuggestedGoalsChart";
+import ProgressTracker from "./ProgressTracker";
 
 const Dashboard = () => {
     const studentInfo = {
