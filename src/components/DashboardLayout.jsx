@@ -1,69 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const DashboardLayout = ({ children, studentInfo }) => {
+const DashboardLayout = ({ children }) => {
+    const location = useLocation();
+
+    const navItems = [
+        { name: "Dashboard", path: "/" },
+        { name: "Careers", path: "/careers" },
+        { name: "Goals", path: "/goals" },
+        { name: "Schools", path: "/schools" },
+        { name: "Resources", path: "/resources" },
+    ];
+
     return (
-        <div className="flex h-screen bg-gradient-to-br from-blue-100 via-teal-100 to-blue-200 font-raleway">
-            {/* Sidebar */}
-            <div className="w-64 bg-white shadow-xl flex flex-col justify-between">
-                <div>
-                    <div className="p-6 text-blue-900 font-extrabold text-2xl border-b border-gray-200">
-                        FuturePath
+        <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-teal-100 font-raleway">
+            <aside className="w-64 bg-white shadow-lg p-6 space-y-4">
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">FuturePath</h1>
+                <nav className="space-y-2">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.name}
+                            to={item.path}
+                            className={`block px-4 py-2 rounded-lg font-medium transition ${
+                                location.pathname === item.path
+                                    ? "bg-blue-600 text-white"
+                                    : "text-gray-700 hover:bg-blue-100 hover:text-blue-800"
+                            }`}
+                        >
+                            {item.name}
+                        </Link>
+                    ))}
+                </nav>
+            </aside>
+            <main className="flex-1 p-8">
+                <div className="flex justify-end mb-6">
+                    <div className="text-right text-gray-700">
+                        <p className="font-semibold">Jordan Taylor</p>
+                        <p>10th Grade</p>
+                        <p>Jefferson High School</p>
                     </div>
-                    <nav className="mt-6 flex flex-col gap-4 px-4">
-                        <Link
-                            to="/"
-                            className="text-blue-800 font-semibold py-2 px-4 rounded-lg hover:bg-blue-100 transition"
-                        >
-                            Dashboard
-                        </Link>
-                        <Link
-                            to="/careers"
-                            className="text-blue-800 font-semibold py-2 px-4 rounded-lg hover:bg-blue-100 transition"
-                        >
-                            Careers
-                        </Link>
-                        <Link
-                            to="/schools"
-                            className="text-blue-800 font-semibold py-2 px-4 rounded-lg hover:bg-blue-100 transition"
-                        >
-                            Schools
-                        </Link>
-                        <Link
-                            to="/goals"
-                            className="text-blue-800 font-semibold py-2 px-4 rounded-lg hover:bg-blue-100 transition"
-                        >
-                            Goals
-                        </Link>
-                        <Link
-                            to="/resources"
-                            className="text-blue-800 font-semibold py-2 px-4 rounded-lg hover:bg-blue-100 transition"
-                        >
-                            Resources
-                        </Link>
-                        <Link
-                            to="/progress"
-                            className="text-blue-800 font-semibold py-2 px-4 rounded-lg hover:bg-blue-100 transition"
-                        >
-                            Progress
-                        </Link>
-                    </nav>
                 </div>
-                <div className="p-4 text-xs text-gray-500">
-                    © 2025 FuturePath. All rights reserved.
-                </div>
-            </div>
-
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-                <header className="flex justify-end items-center bg-white shadow-md p-4">
-                    <div className="text-right">
-                        <div className="font-bold text-blue-900">{studentInfo.name}</div>
-                        <div className="text-sm text-gray-600">{studentInfo.grade} • {studentInfo.school}</div>
-                    </div>
-                </header>
-                <main className="flex-1 overflow-y-auto p-8">{children}</main>
-            </div>
+                {children}
+            </main>
         </div>
     );
 };
