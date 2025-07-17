@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Careers from './components/Careers';
-import Goals from './components/Goals';
-import Schools from './components/Schools';
-import Resources from './components/Resources';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import Careers from "./components/Careers";
+import Goals from "./components/Goals";
+import Schools from "./components/Schools";
+import Resources from "./components/Resources";
 
 function App() {
     return (
@@ -22,4 +22,3 @@ function App() {
 }
 
 export default App;
-
