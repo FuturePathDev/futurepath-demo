@@ -1,26 +1,37 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DashboardLayout from "./components/DashboardLayout";
-import Dashboard from "./components/Dashboard";
-import Careers from "./components/Careers";
-import Schools from "./components/Schools";
-import Goals from "./components/Goals";
-import Progress from "./components/Progress";
+import { Link, Outlet } from "react-router-dom";
+import "./DashboardLayout.css"; // optional if you want separate styling here
 
-function App() {
+const DashboardLayout = () => {
     return (
-        <Router>
-            <DashboardLayout>
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/careers" element={<Careers />} />
-                    <Route path="/schools" element={<Schools />} />
-                    <Route path="/goals" element={<Goals />} />
-                    <Route path="/progress" element={<Progress />} />
-                </Routes>
-            </DashboardLayout>
-        </Router>
-    );
-}
+        <div style={{ display: "flex", minHeight: "100vh", fontFamily: "Raleway, sans-serif" }}>
+            <aside style={{ width: "220px", backgroundColor: "#0a2a66", color: "white", padding: "20px" }}>
+                <h2 style={{ fontSize: "1.5rem", marginBottom: "2rem" }}>FuturePath</h2>
+                <nav style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <Link style={{ color: "white", textDecoration: "none" }} to="/">Dashboard</Link>
+                    <Link style={{ color: "white", textDecoration: "none" }} to="/careers">Careers</Link>
+                    <Link style={{ color: "white", textDecoration: "none" }} to="/schools">Schools</Link>
+                    <Link style={{ color: "white", textDecoration: "none" }} to="/goals">Goals</Link>
+                    <Link style={{ color: "white", textDecoration: "none" }} to="/progress">Progress</Link>
+                </nav>
+            </aside>
 
-export default App;
+            <main style={{
+                flexGrow: 1,
+                padding: "40px",
+                background: "linear-gradient(to right, #b3e5fc, #81d4fa)",
+                display: "flex",
+                flexDirection: "column"
+            }}>
+                <div style={{ alignSelf: "flex-end", textAlign: "right", marginBottom: "20px", color: "#0a2a66" }}>
+                    <p>Jordan Taylor</p>
+                    <p>10th Grade</p>
+                    <p>Jefferson High School</p>
+                </div>
+                <Outlet />
+            </main>
+        </div>
+    );
+};
+
+export default DashboardLayout;
