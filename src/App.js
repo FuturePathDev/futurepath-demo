@@ -1,11 +1,10 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DashboardLayout from "./components/DashboardLayout";
-import Careers from "./components/Careers";
-import Schools from "./components/Schools";
-import Goals from "./components/Goals";
-import Progress from "./components/Progress";
-import Resources from "./components/Resources";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import DashboardLayout from './components/DashboardLayout';
+import Careers from './components/Careers';
+import Schools from './components/Schools';
+import Goals from './components/Goals';
+import Resources from './components/Resources';
 
 function App() {
     return (
@@ -15,8 +14,8 @@ function App() {
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/schools" element={<Schools />} />
                 <Route path="/goals" element={<Goals />} />
-                <Route path="/progress" element={<Progress />} />
                 <Route path="/resources" element={<Resources />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
     );
