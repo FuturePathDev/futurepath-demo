@@ -1,58 +1,38 @@
-import React from 'react';
+import React from "react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-const careersData = [
-    {
-        title: 'Software Engineer',
-        salary: '$110,000',
-        growth: '22%',
-        education: 'Bachelor’s Degree',
-    },
-    {
-        title: 'Data Scientist',
-        salary: '$120,000',
-        growth: '31%',
-        education: 'Bachelor’s or Master’s Degree',
-    },
-    {
-        title: 'Healthcare Administrator',
-        salary: '$99,000',
-        growth: '28%',
-        education: 'Bachelor’s Degree',
-    },
-    {
-        title: 'Cybersecurity Analyst',
-        salary: '$105,000',
-        growth: '35%',
-        education: 'Bachelor’s Degree',
-    },
-    {
-        title: 'AI/ML Specialist',
-        salary: '$130,000',
-        growth: '40%',
-        education: 'Master’s Degree Preferred',
-    },
+const careerData = [
+    { career: "Software Engineer", salary: 120000 },
+    { career: "Data Scientist", salary: 115000 },
+    { career: "Cybersecurity Analyst", salary: 105000 },
+    { career: "Project Manager", salary: 95000 },
+    { career: "UX Designer", salary: 90000 },
 ];
 
 const Careers = () => {
     return (
-        <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-10 font-raleway text-gray-800">
-            <h1 className="text-4xl font-bold text-center mb-10 text-white">Lucrative Careers</h1>
-            <div className="max-w-4xl mx-auto grid gap-6">
-                {careersData.map((career, index) => (
-                    <div
-                        key={index}
-                        className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition"
-                    >
-                        <h2 className="text-2xl font-semibold text-blue-900">{career.title}</h2>
-                        <p className="mt-2 text-gray-700">💼 Median Salary: {career.salary}</p>
-                        <p className="text-gray-700">📈 Projected Growth: {career.growth}</p>
-                        <p className="text-gray-700">🎓 Education Required: {career.education}</p>
-                    </div>
-                ))}
+        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-teal-100 to-blue-200 p-8 font-raleway">
+            <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-xl p-10">
+                <h1 className="text-4xl font-bold text-blue-800 mb-4">Explore Lucrative Careers</h1>
+                <p className="mb-8 text-gray-600">
+                    These are some of the most in-demand and high-paying careers you may want to explore.
+                    Consider how your skills and interests align with these fields.
+                </p>
+
+                <div className="h-96">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={careerData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="career" />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey="salary" fill="#1e3a8a" radius={[6, 6, 0, 0]} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
         </div>
     );
 };
 
 export default Careers;
-
