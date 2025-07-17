@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from './Sidebar';
+import './DashboardLayout.css';
 
 const DashboardLayout = ({ studentInfo, children }) => {
     return (
