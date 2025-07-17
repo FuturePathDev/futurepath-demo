@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import "./DashboardLayout.css"; // optional if you want separate styling here
+
 
 const DashboardLayout = () => {
     return (
