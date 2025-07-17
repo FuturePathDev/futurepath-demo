@@ -1,20 +1,20 @@
-import React from "react";
-import Sidebar from "./Sidebar";
+import React from 'react';
+import Sidebar from './Sidebar';
 
-const DashboardLayout = ({ children, studentInfo }) => {
+const DashboardLayout = ({ studentInfo, children }) => {
     return (
-        <div className="flex min-h-screen bg-gradient-to-r from-blue-200 to-teal-200 font-raleway">
+        <div className="flex">
             <Sidebar />
-            <main className="flex-1 p-10">
+            <div className="flex-1 ml-64 min-h-screen bg-gradient-to-r from-blue-100 to-teal-100 p-8 font-raleway">
                 <div className="flex justify-end mb-8">
-                    <div className="text-right">
-                        <p className="font-bold text-blue-900">{studentInfo.name}</p>
-                        <p className="text-blue-800">{studentInfo.grade}</p>
-                        <p className="text-blue-800">{studentInfo.school}</p>
+                    <div className="text-right text-blue-900">
+                        <p className="font-bold">{studentInfo.name}</p>
+                        <p>{studentInfo.grade}</p>
+                        <p>{studentInfo.school}</p>
                     </div>
                 </div>
-                {children}
-            </main>
+                <main>{children}</main>
+            </div>
         </div>
     );
 };
