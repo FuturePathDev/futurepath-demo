@@ -1,37 +1,61 @@
-import React from "react";
-import LucrativeCareersChart from "./components/LucrativeCareersChart";
-import EsteemedSchoolsChart from "./components/EsteemedSchoolsChart";
-import SuggestedGoalsChart from "./components/SuggestedGoalsChart";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import DashboardLayout from "./DashboardLayout";
+import ProgressTracker from "./ProgressTracker";
+import CareerCharts from "./CareerCharts";
 
 const StudentDashboard = () => {
+    const [studentData, setStudentData] = useState(null);
+
+    useEffect(() => {
+        // Mocking student data fetch
+        const fetchData = async () => {
+            const data = {
+                name: "Jordan Taylor",
+                grade: "10th",
+                school: "Jefferson High School",
+                district: "Salem-Keizer SD",
+                careerInterest: ["Software Developer", "Data Analyst"],
+            };
+            setStudentData(data);
+        };
+        fetchData();
+    }, []);
+
     return (
-        <div className="min-h-screen bg-gradient-to-r from-teal-400 to-blue-300 p-8 font-raleway text-white">
-            <div className="max-w-5xl mx-auto bg-white text-gray-800 rounded-2xl shadow-lg p-8 space-y-8">
-                <h1 className="text-3xl font-bold">Student Dashboard</h1>
+        <DashboardLayout>
+            <div className="p-6 space-y-8">
+                {studentData && (
+                    <div className="bg-gradient-to-r from-blue-100 to-teal-100 p-6 rounded-lg shadow-md">
+                        <h2 className="text-xl font-bold text-gray-800 mb-2">Student Profile</h2>
+                        <div className="grid grid-cols-2 gap-4 text-gray-700">
+                            <div>
+                                <p className="font-semibold">Name:</p>
+                                <p>{studentData.name}</p>
+                            </div>
+                            <div>
+                                <p className="font-semibold">Grade:</p>
+                                <p>{studentData.grade}</p>
+                            </div>
+                            <div>
+                                <p className="font-semibold">School:</p>
+                                <p>{studentData.school}</p>
+                            </div>
+                            <div>
+                                <p className="font-semibold">District:</p>
+                                <p>{studentData.district}</p>
+                            </div>
+                            <div className="col-span-2">
+                                <p className="font-semibold">Career Interests:</p>
+                                <p>{studentData.careerInterest.join(", ")}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="bg-gray-100 p-4 rounded-xl">
-                        <LucrativeCareersChart />
-                    </div>
-                    <div className="bg-gray-100 p-4 rounded-xl">
-                        <EsteemedSchoolsChart />
-                    </div>
-                    <div className="bg-gray-100 p-4 rounded-xl">
-                        <SuggestedGoalsChart />
-                    </div>
-                </div>
-
-                <div className="mt-8">
-                    <Link
-                        to="/update-profile"
-                        className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Update Profile
-                    </Link>
-                </div>
+                <ProgressTracker />
+                <CareerCharts />
             </div>
-        </div>
+        </DashboardLayout>
     );
 };
 
