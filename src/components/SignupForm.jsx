@@ -1,12 +1,12 @@
 import { useState } from 'react';
+import { Auth, API } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
-import { API } from 'aws-amplify';
 
 function SignupForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    userId: '', // You can use username as userId for now, or generate UUID
     username: '',
+    password: '',
     email: '',
     name: '',
     age: '',
@@ -22,18 +22,43 @@ function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const apiName = 'FuturePathAPI'; // This matches your Amplify resource name
-      const path = '/users'; // This matches your API path
-      const userData = { ...formData, userId: formData.username };
+      // Step 1: Cognito SignUp
+      await Auth.signUp({
+        username: formData.username,
+        password: formData.password,
+        attributes: {
+          email: formData.email,
+          name: formData.name,
+        },
+      });
+      alert('Account created! Check your email to confirm. Now signing in...');
+
+      // Step 2: Cognito SignIn (assuming user confirmed email already for this test)
+      await Auth.signIn(formData.username, formData.password);
+
+      // Step 3: POST user data to API
+      const apiName = 'FuturePathAPI';
+      const path = '/users';
+      const userData = {
+        userId: formData.username,
+        username: formData.username,
+        email: formData.email,
+        name: formData.name,
+        age: formData.age,
+        profilePicture: formData.profilePicture,
+        school: formData.school,
+        district: formData.district,
+        careerPath: formData.careerPath,
+      };
 
       await API.post(apiName, path, { body: userData });
-
-      alert('User profile created successfully!');
+      alert('User profile saved to database!');
       navigate('/dashboard');
     } catch (error) {
-      console.error('API error:', error);
-      alert('Something went wrong saving your data.');
+      console.error('Signup error:', error);
+      alert(error.message || 'Something went wrong.');
     }
   };
 
@@ -41,6 +66,7 @@ function SignupForm() {
     <form className="signup-form" onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <input name="username" placeholder="Username" onChange={handleChange} required />
+      <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
       <input name="email" placeholder="Email" onChange={handleChange} required />
       <input name="name" placeholder="Full Name" onChange={handleChange} required />
       <input name="age" placeholder="Age" onChange={handleChange} />
