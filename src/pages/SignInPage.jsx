@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
 
+console.log('Attempting sign in with:', credentials);
+
+
 function SignInPage() {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ username: '', password: '' });
