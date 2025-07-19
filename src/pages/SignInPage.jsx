@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
 
-console.log('Attempting sign in with:', credentials);
-
-
 function SignInPage() {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -44,6 +41,11 @@ function SignInPage() {
         required
       />
       <button type="submit">Sign In</button>
+
+      <p>
+        Need to confirm your account?{' '}
+        <a href="/confirm">Confirm here</a>
+      </p>
     </form>
   );
 }
