@@ -1,3 +1,5 @@
+npm install oidc-client-ts react-oidc-context --save
+
 {
   "name": "futurepath-main",
   "version": "1.0.0",
