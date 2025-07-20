@@ -4,10 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 function SignInPage() {
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: ''
+  });
 
   const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -24,9 +30,10 @@ function SignInPage() {
   };
 
   return (
-    <form className="signup-form" onSubmit={handleSubmit}>
+    <form className="signup-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: 'auto', paddingTop: '100px' }}>
       <h2>Sign In</h2>
       <input
+        type="text"
         name="username"
         placeholder="Username"
         value={credentials.username}
@@ -52,3 +59,4 @@ function SignInPage() {
 }
 
 export default SignInPage;
+
