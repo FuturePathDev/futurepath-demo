@@ -10,17 +10,19 @@ function SignInPage() {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Auth.signIn(credentials.username, credentials.password);
-      alert('Sign-in successful!');
-      navigate('/dashboard');
+        const user = await Auth.signIn(credentials.username, credentials.password);
+        console.log('Signed in user:', user);  // This will show in the browser console
+        alert('Sign-in successful!');
+        navigate('/dashboard');
     } catch (error) {
-      console.error('Error signing in:', error);
-      alert(error.message || 'Sign-in failed.');
+        console.error('Error signing in:', error);
+        alert(error.message || 'Sign-in failed.');
     }
-  };
+};
+
 
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
