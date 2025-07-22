@@ -1,0 +1,37 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-futurepathmain-dev-e70bc-authRole",
+      "UnauthRoleArn": "arn:aws:iam::327024256877:role/amplify-futurepathmain-dev-e70bc-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::327024256877:role/amplify-futurepathmain-dev-e70bc-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-futurepathmain-dev-e70bc-deployment",
+      "UnauthRoleName": "amplify-futurepathmain-dev-e70bc-unauthRole",
+      "StackName": "amplify-futurepathmain-dev-e70bc",
+      "StackId": "arn:aws:cloudformation:us-east-1:327024256877:stack/amplify-futurepathmain-dev-e70bc/f8e038a0-636b-11f0-b041-0affcf8eea23",
+      "AmplifyAppId": "dph6g5p65u7zz",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-futurepathmain-dev-e70bc-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "FuturePathUsersHandler": {
+          "deploymentBucketName": "amplify-futurepathmain-dev-e70bc-deployment",
+          "s3Key": "amplify-builds/FuturePathUsersHandler-464b77552b5956636637-build.zip"
+        },
+        "GetFuturePathUser": {
+          "deploymentBucketName": "amplify-futurepathmain-dev-e70bc-deployment",
+          "s3Key": "amplify-builds/GetFuturePathUser-424a656379314b51436c-build.zip"
+        }
+      },
+      "auth": {
+        "futurepathmain": {}
+      },
+      "storage": {
+        "FuturePathUsers": {}
+      },
+      "api": {
+        "FuturePathAPI": {}
+      }
+    }
+  }
+}

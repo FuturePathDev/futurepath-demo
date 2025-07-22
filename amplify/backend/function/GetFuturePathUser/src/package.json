@@ -1,0 +1,9 @@
+{
+  "name": "get-future-path-user",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.540.0"
+  }
+}

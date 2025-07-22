@@ -1,4 +1,8 @@
 function Dashboard({ user }) {
+  if (!user) {
+    return <h1>Loading user profile...</h1>;
+  }
+
   return (
     <div className="dashboard">
       <h1>Welcome, {user.name}</h1>
@@ -17,4 +21,3 @@ function Dashboard({ user }) {
 }
 
 export default Dashboard;
-

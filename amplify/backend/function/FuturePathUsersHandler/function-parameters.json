@@ -1,0 +1,21 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "FuturePathUsers": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "auth": {
+      "futurepathmain": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}

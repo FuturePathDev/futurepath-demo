@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathUsers",
+  "tableName": "FuturePathUsers",
+  "partitionKey": {
+    "fieldName": "userId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

@@ -1,21 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignupPage from './pages/SignupPage';
-import DashboardPage from './pages/DashboardPage';
-import ConfirmPage from './pages/ConfirmPage';
-import SignInPage from './pages/SignInPage';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignInPage from "./pages/SignInPage";
+import ConfirmPage from "./pages/ConfirmPage";
+import DashboardPage from "./pages/DashboardPage";
+import StudentDashboard from "./StudentDashboard";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignupPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/" element={<SignInPage />} />
         <Route path="/confirm" element={<ConfirmPage />} />
-        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
