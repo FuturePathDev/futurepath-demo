@@ -1,9 +1,15 @@
 {
   "name": "get-future-path-user",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.540.0"
-  }
+    "@aws-sdk/client-dynamodb": "^3.848.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

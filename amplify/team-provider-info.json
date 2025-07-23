@@ -20,7 +20,7 @@
         },
         "GetFuturePathUser": {
           "deploymentBucketName": "amplify-futurepathmain-dev-e70bc-deployment",
-          "s3Key": "amplify-builds/GetFuturePathUser-424a656379314b51436c-build.zip"
+          "s3Key": "amplify-builds/GetFuturePathUser-306f4d53507459735a69-build.zip"
         }
       },
       "auth": {

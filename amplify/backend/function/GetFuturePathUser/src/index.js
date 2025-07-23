@@ -1,50 +1,50 @@
 const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
-const client = new DynamoDBClient({ region: process.env.REGION });
+const client = new DynamoDBClient({ region: "us-east-1" });
 
 exports.handler = async (event) => {
-    try {
-        const userId = event.pathParameters?.userId;
+  console.log("EVENT RECEIVED:", JSON.stringify(event));
 
-        if (!userId) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Missing userId in path parameters." }),
-            };
-        }
-
-        const params = {
-            TableName: process.env.STORAGE_FUTUREPATHUSERS_NAME,
-            Key: { userId: { S: userId } },
-        };
-
-        const command = new GetItemCommand(params);
-        const data = await client.send(command);
-
-        if (!data.Item) {
-            return {
-                statusCode: 404,
-                body: JSON.stringify({ message: "User not found" }),
-            };
-        }
-
-        const user = {
-            userId: data.Item.userId.S,
-            name: data.Item.name?.S || null,
-            email: data.Item.email?.S || null,
-            school: data.Item.school?.S || null,
-            grade: data.Item.grade?.S || null,
-        };
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify(user),
-        };
-    } catch (err) {
-        console.error("Lambda error:", err);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" }),
-        };
+  try {
+    const userId = event.pathParameters?.userId;
+    if (!userId) {
+      console.error("Missing userId in path parameters.");
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Missing userId in path parameters." }),
+      };
     }
+
+    const params = {
+      TableName: "FuturePathUsers",
+      Key: {
+        userId: { S: userId },
+      },
+    };
+
+    console.log("DynamoDB Params:", JSON.stringify(params));
+
+    const command = new GetItemCommand(params);
+    const data = await client.send(command);
+
+    console.log("DynamoDB Response:", JSON.stringify(data));
+
+    if (!data.Item) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ message: "User not found." }),
+      };
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data.Item),
+    };
+  } catch (err) {
+    console.error("Lambda error:", err);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: "Internal server error" }),
+    };
+  }
 };
