@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './App.css';
-
-import { Amplify } from 'aws-amplify';  // ✅ Correct import
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import { BrowserRouter } from 'react-router-dom';
+import { ProfileProvider } from './context/ProfileContext.jsx';
+import App from './App.jsx';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <ProfileProvider>
+        <App />
+      </ProfileProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
