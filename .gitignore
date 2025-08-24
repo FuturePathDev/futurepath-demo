@@ -21,3 +21,17 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# Build & artifacts
+build/
+dist/
+archive/
+*.zip
+*.csv
+
+# Lambda bundles
+functions/*.zip
+backend/**/**/*.zip
+
+# Local env (keep if it's non-secret)
+.env.local
