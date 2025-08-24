@@ -1,0 +1,14 @@
+{
+  "resourceName": "FuturePathMentorInvitesDemo",
+  "tableName": "FuturePathMentorInvitesDemo",
+  "partitionKey": {
+    "fieldName": "studentEmail",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "inviteId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

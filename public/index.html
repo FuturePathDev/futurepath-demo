@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Hard fallback so API calls always have a base URL -->
+<script>
+  window.__API_BASE_URL__ = 'https://lx147yqkva.execute-api.us-east-1.amazonaws.com/demo';
+  // (legacy alias some files may read)
+  window.API_BASE = window.__API_BASE_URL__;
+</script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FuturePath App</title>

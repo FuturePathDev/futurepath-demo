@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "storage": {
+      "FuturePathTutorInvites": [
+        "create"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "invitesTable",
+      "environmentVariableName": "INVITES_TABLE"
+    },
+    {
+      "cloudFormationParameterName": "corsOrigin",
+      "environmentVariableName": "CORS_ORIGIN"
+    }
+  ]
+}

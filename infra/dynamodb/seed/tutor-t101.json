@@ -1,0 +1,10 @@
+{
+  "tutorId": {"S":"t-101"},
+  "name":    {"S":"Ms. Rivera"},
+  "subjects":{"L":[{"S":"Math"},{"S":"Algebra"}]},
+  "grades":  {"L":[{"S":"6"},{"S":"7"},{"S":"8"}]},
+  "bio":     {"S":"Middle school math specialist."},
+  "photoUrl":{"S":"https://picsum.photos/seed/t101/300/300"},
+  "rate":    {"N":"45"},
+  "timezone":{"S":"America/Los_Angeles"}
+}

@@ -17,6 +17,8 @@ import AssessmentResults from "./pages/AssessmentResults.jsx";
 import Mentors from "./pages/Mentors.jsx";
 import TutorsPage from "./pages/TutorsPage.jsx";
 import BookmarksPage from "./pages/BookmarksPage.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
+
 
 
 // Resources feature
@@ -41,6 +43,9 @@ function Layout({ children }) {
           <NavLink to="/tutors" className="text-sm">Tutors</NavLink>
           <NavLink to="/resources" className="text-sm">Resources</NavLink>
           <NavLink to="/bookmarks" className="text-sm">Bookmarks</NavLink>
+          <NavLink to="/settings" className="text-sm">Settings</NavLink>
+
+
 
 
           <NavLink to="/announcements" className="text-sm">Announcements</NavLink>
@@ -96,6 +101,8 @@ export default function App() {
         {/* Announcements & Profile */}
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/profile" element={<UpdateProfileForm />} />
+        <Route path="/settings" element={<SettingsPage />} />
+
 
         {/* Optional 404: */}
         {/* <Route path="*" element={<NotFound />} /> */}

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "storage": {
+      "FuturePathMentorInvitesDemo": [
+        "create",
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

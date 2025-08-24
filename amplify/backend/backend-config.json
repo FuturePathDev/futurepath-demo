@@ -1,0 +1,483 @@
+{
+  "api": {
+    "FuturePathAPIDemo": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "GetLeaderboardDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "GetAnnouncementsDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "DismissNotificationDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "UserProfileDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "GetSchoolsLeaderboardDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "GetParentsLeaderboardDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "MentorsInviteDemo"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "FuturePathTutors"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "PostTutorInvite"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "futurepathdemoebcc40f6": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "BIRTHDATE",
+          "EMAIL",
+          "NAME",
+          "PREFERRED_USERNAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "DismissNotificationDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathNotificationsDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "FuturePathTutors": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathTutors"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetAnnouncementsDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathAnnouncementsDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetLeaderboardDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathLeaderboardsDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetParentsLeaderboardDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathParentsLeaderboardDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetSchoolsLeaderboardDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathSchoolsDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "MentorsInviteDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathMentorInvitesDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "PostTutorInvite": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathTutorInvites"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "UserProfileDemo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "FuturePathUsersDemo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_DismissNotificationDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "DismissNotificationDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_DismissNotificationDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "DismissNotificationDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_FuturePathTutors_corsOrigin": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FuturePathTutors"
+        }
+      ]
+    },
+    "AMPLIFY_function_FuturePathTutors_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FuturePathTutors"
+        }
+      ]
+    },
+    "AMPLIFY_function_FuturePathTutors_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FuturePathTutors"
+        }
+      ]
+    },
+    "AMPLIFY_function_FuturePathTutors_tutorsTable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FuturePathTutors"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetAnnouncementsDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetAnnouncementsDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetAnnouncementsDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetAnnouncementsDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetLeaderboardDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetLeaderboardDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetLeaderboardDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetLeaderboardDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetParentsLeaderboardDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetParentsLeaderboardDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetParentsLeaderboardDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetParentsLeaderboardDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetSchoolsLeaderboardDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetSchoolsLeaderboardDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetSchoolsLeaderboardDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetSchoolsLeaderboardDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_MentorsInviteDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "MentorsInviteDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_MentorsInviteDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "MentorsInviteDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_PostTutorInvite_corsOrigin": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PostTutorInvite"
+        }
+      ]
+    },
+    "AMPLIFY_function_PostTutorInvite_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PostTutorInvite"
+        }
+      ]
+    },
+    "AMPLIFY_function_PostTutorInvite_invitesTable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PostTutorInvite"
+        }
+      ]
+    },
+    "AMPLIFY_function_PostTutorInvite_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PostTutorInvite"
+        }
+      ]
+    },
+    "AMPLIFY_function_UserProfileDemo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UserProfileDemo"
+        }
+      ]
+    },
+    "AMPLIFY_function_UserProfileDemo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UserProfileDemo"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "FuturePathAnnouncementsDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathLeaderboardsDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathMentorInvites": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathMentorInvitesDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathMentors": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathNotificationsDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathParentsLeaderboardDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathSchoolsDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathTutorInvites": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathTutors": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "FuturePathUsersDemo": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}

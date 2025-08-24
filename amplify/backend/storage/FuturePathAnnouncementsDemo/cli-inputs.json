@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathAnnouncementsDemo",
+  "tableName": "FuturePathAnnouncementsDemo",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

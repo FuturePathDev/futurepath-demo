@@ -1,0 +1,15 @@
+{
+  "name": "user-profile-fn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lambda backing the /user endpoint (GET/POST)",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"no build step\"",
+    "test": "echo \"no tests\" && exit 0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.592.0",
+    "@aws-sdk/lib-dynamodb": "^3.592.0"
+  }
+}

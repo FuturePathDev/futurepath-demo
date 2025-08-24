@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "paths": {
+    "/leaderboard": {
+      "name": "/leaderboard",
+      "lambdaFunction": "GetLeaderboardDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/announcements": {
+      "name": "/announcements",
+      "lambdaFunction": "GetAnnouncementsDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/notifications/dismiss": {
+      "name": "/notifications/dismiss",
+      "lambdaFunction": "DismissNotificationDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/user": {
+      "name": "/user",
+      "lambdaFunction": "UserProfileDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/school": {
+      "name": "/school",
+      "lambdaFunction": "GetLeaderboardDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/schools": {
+      "name": "/schools",
+      "lambdaFunction": "GetSchoolsLeaderboardDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/leaderboard/parents": {
+      "name": "/leaderboard/parents",
+      "lambdaFunction": "GetParentsLeaderboardDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/mentors/invite": {
+      "name": "/mentors/invite",
+      "lambdaFunction": "MentorsInviteDemo",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/tutors": {
+      "name": "/tutors",
+      "lambdaFunction": "FuturePathTutors",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
+    },
+    "/tutors/invite": {
+      "name": "/tutors/invite",
+      "lambdaFunction": "PostTutorInvite",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create"
+        ]
+      }
+    }
+  }
+}

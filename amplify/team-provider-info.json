@@ -1,0 +1,92 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-futurepathdemo-dev-8d01c-authRole",
+      "UnauthRoleArn": "arn:aws:iam::327024256877:role/amplify-futurepathdemo-dev-8d01c-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::327024256877:role/amplify-futurepathdemo-dev-8d01c-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-futurepathdemo-dev-8d01c-deployment",
+      "UnauthRoleName": "amplify-futurepathdemo-dev-8d01c-unauthRole",
+      "StackName": "amplify-futurepathdemo-dev-8d01c",
+      "StackId": "arn:aws:cloudformation:us-east-1:327024256877:stack/amplify-futurepathdemo-dev-8d01c/cae26120-7645-11f0-89ea-0e8de6c1666d",
+      "AmplifyAppId": "d385t0ecyleaea"
+    }
+  },
+  "demo": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-futurepathdemo-demo-4da97-authRole",
+      "UnauthRoleArn": "arn:aws:iam::327024256877:role/amplify-futurepathdemo-demo-4da97-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::327024256877:role/amplify-futurepathdemo-demo-4da97-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+      "UnauthRoleName": "amplify-futurepathdemo-demo-4da97-unauthRole",
+      "StackName": "amplify-futurepathdemo-demo-4da97",
+      "StackId": "arn:aws:cloudformation:us-east-1:327024256877:stack/amplify-futurepathdemo-demo-4da97/423ce240-7646-11f0-bcd3-0ed01b5aa809",
+      "AmplifyAppId": "d385t0ecyleaea",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-futurepathdemo-demo-4da97-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "futurepathdemoebcc40f6": {}
+      },
+      "function": {
+        "GetLeaderboardDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/GetLeaderboardDemo-74414662396645345337-build.zip"
+        },
+        "GetAnnouncementsDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/GetAnnouncementsDemo-2b4d7274756b694d7672-build.zip"
+        },
+        "DismissNotificationDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/DismissNotificationDemo-6e6c514c376a4e2f5569-build.zip"
+        },
+        "UserProfileDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/UserProfileDemo-4d70556c736c44394c4b-build.zip"
+        },
+        "GetSchoolsLeaderboardDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/GetSchoolsLeaderboardDemo-376c715a42455655792f-build.zip"
+        },
+        "GetParentsLeaderboardDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/GetParentsLeaderboardDemo-6f364a57343170636352-build.zip"
+        },
+        "MentorsInviteDemo": {
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/MentorsInviteDemo-6a2f533342474b523332-build.zip"
+        },
+        "FuturePathTutors": {
+          "tutorsTable": "FuturePathTutors",
+          "corsOrigin": "*",
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/FuturePathTutors-6d30586b4c2b6f616b73-build.zip"
+        },
+        "PostTutorInvite": {
+          "invitesTable": "FuturePathTutorInvites",
+          "corsOrigin": "*",
+          "deploymentBucketName": "amplify-futurepathdemo-demo-4da97-deployment",
+          "s3Key": "amplify-builds/PostTutorInvite-6a6c53786d3366466874-build.zip"
+        }
+      },
+      "storage": {
+        "FuturePathUsersDemo": {},
+        "FuturePathLeaderboardsDemo": {},
+        "FuturePathAnnouncementsDemo": {},
+        "FuturePathNotificationsDemo": {},
+        "FuturePathParentsLeaderboardDemo": {},
+        "FuturePathSchoolsDemo": {},
+        "FuturePathMentorInvitesDemo": {},
+        "FuturePathMentors": {},
+        "FuturePathMentorInvites": {},
+        "FuturePathTutors": {},
+        "FuturePathTutorInvites": {}
+      },
+      "api": {
+        "FuturePathAPIDemo": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /tutors/invite",
+  "rawPath": "/tutors/invite",
+  "rawQueryString": "",
+  "headers": {
+    "content-type": "application/json",
+    "authorization": "mock"
+  },
+  "requestContext": {
+    "http": { "method": "POST" },
+    "authorizer": { "jwt": { "claims": { "sub": "mock-user-sub-1234" } } }
+  },
+  "isBase64Encoded": false,
+  "body": "{\"tutorId\":\"t-101\",\"tutorName\":\"Dr. Priya Shah\",\"studentEmail\":\"student@example.com\",\"studentName\":\"Alex Kim\",\"parentEmail\":\"parent@example.com\"}"
+}

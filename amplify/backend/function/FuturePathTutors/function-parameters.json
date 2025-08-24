@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "storage": {
+      "FuturePathTutors": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "tutorsTable",
+      "environmentVariableName": "TUTORS_TABLE"
+    },
+    {
+      "cloudFormationParameterName": "corsOrigin",
+      "environmentVariableName": "CORS_ORIGIN"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+/* Minimal baseline so the import exists and the build works */
+html, body, #root { height: 100%; margin: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+               "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: #f8fafc; /* light gray */
+  color: #111827;      /* near-black */
+}
+a { color: inherit; text-decoration: none; }

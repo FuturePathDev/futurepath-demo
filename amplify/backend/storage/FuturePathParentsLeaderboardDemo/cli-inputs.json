@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathParentsLeaderboardDemo",
+  "tableName": "FuturePathParentsLeaderboardDemo",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

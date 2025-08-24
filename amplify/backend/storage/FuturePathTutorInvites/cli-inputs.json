@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathTutorInvites",
+  "tableName": "FuturePathTutorInvites",
+  "partitionKey": {
+    "fieldName": "inviteId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

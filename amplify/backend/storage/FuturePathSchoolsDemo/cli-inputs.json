@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathSchoolsDemo",
+  "tableName": "FuturePathSchoolsDemo",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

@@ -1,0 +1,15 @@
+{
+  "name": "get-parents-leaderboard-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.520.0",
+    "@aws-sdk/lib-dynamodb": "^3.520.0"
+  },
+  "scripts": {
+    "build": "echo \"no build step\"",
+    "test": "echo \"ok\""
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathMentors",
+  "tableName": "FuturePathMentors",
+  "partitionKey": {
+    "fieldName": "mentorId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

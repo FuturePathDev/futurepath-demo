@@ -1,0 +1,12 @@
+{
+  "name": "get-leaderboard-demo",
+  "version": "1.0.0",
+  "description": "Lambda for fetching sorted leaderboards with optional per-bucket limits and overallTop.",
+  "main": "index.js",
+  "private": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.637.0",
+    "@aws-sdk/lib-dynamodb": "^3.637.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "resourceName": "FuturePathTutors",
+  "tableName": "FuturePathTutors",
+  "partitionKey": {
+    "fieldName": "tutorId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
