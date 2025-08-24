@@ -348,7 +348,6 @@ export default function ParentDashboard() {
           ) : children.length ? (
             children.map((c) => {
               const selected = String(childEmail || "").toLowerCase() === c.email.toLowerCase();
-              const label = c.name || "Student";
               return (
                 <div key={c.email} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                   <button
