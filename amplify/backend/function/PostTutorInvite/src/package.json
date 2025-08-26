@@ -5,19 +5,10 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.92",
-    "react-scripts": "^5.0.1"
+    "@types/aws-lambda": "^8.10.92"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.11.2",
     "@aws-sdk/client-dynamodb": "^3.868.0",
-    "@aws-sdk/lib-dynamodb": "^3.868.0",
-    "aws-amplify": "^6.15.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "@aws-sdk/lib-dynamodb": "^3.868.0"
   }
 }

@@ -166,4 +166,37 @@ aside[data-rail="fp-user-right"] {
   left: auto !important;
 }
 
+/* ===== Enforce top-right user card & button-like menu ===== */
+[data-rail="fp-user-right-card"] {
+  position: fixed !important;
+  right: 16px !important;
+  top: 16px !important;
+  z-index: 1000 !important;
+  width: 320px !important;
+}
+
+/* Button containers for sidebar links (and no underline) */
+[data-nav="fp-vertical"] a,
+[data-nav="fp-vertical"] button {
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 8px 12px !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,0.95) !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 1px rgba(2,6,23,0.04) !important;
+}
+[data-nav="fp-vertical"] a[aria-current="page"] {
+  background: #ffffff !important;
+  border-color: #bae6fd !important;
+  color: #075985 !important;
+}
+[data-nav="fp-vertical"] a:hover {
+  background: #ffffff !important;
+}
+
 

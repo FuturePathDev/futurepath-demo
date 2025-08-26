@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const DEMO_USERS = [
   { label: "Parent (parent@example.com)", role: "parent", email: "parent@example.com", route: "/parent" },
   { label: "Student (student@example.com)", role: "student", email: "student@example.com", route: "/student" },
+  
 ];
 
 export default function DemoSwitcher() {
