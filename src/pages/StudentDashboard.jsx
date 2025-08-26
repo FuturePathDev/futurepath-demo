@@ -8,17 +8,8 @@ import MentorInvitePanel from "../components/MentorInvitePanel.jsx";
 /* ------------------------------------------------------------------ */
 /* Helpers                                                            */
 /* ------------------------------------------------------------------ */
-
 function firstOr(arr, fallback = null) {
   return Array.isArray(arr) && arr.length ? arr[0] : fallback;
-}
-
-function toTitle(s) {
-  return String(s || "")
-    .replace(/[_-]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
 /** Demo-friendly default career set if user has none yet */
@@ -38,7 +29,6 @@ const DEFAULT_CAREERS = [
 /* ------------------------------------------------------------------ */
 /* Small UI primitives                                                 */
 /* ------------------------------------------------------------------ */
-
 function SectionCard({ title, subtitle, right, children }) {
   return (
     <section className="rounded-2xl border bg-white shadow-sm">
@@ -53,7 +43,6 @@ function SectionCard({ title, subtitle, right, children }) {
     </section>
   );
 }
-
 function Pill({ children }) {
   return (
     <span className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs text-gray-700">
@@ -61,7 +50,6 @@ function Pill({ children }) {
     </span>
   );
 }
-
 function ActionButton({ children, onClick, variant = "solid", disabled }) {
   const base =
     "rounded-md px-3 py-1.5 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed";
@@ -79,7 +67,6 @@ function ActionButton({ children, onClick, variant = "solid", disabled }) {
 /* ------------------------------------------------------------------ */
 /* Main page                                                           */
 /* ------------------------------------------------------------------ */
-
 export default function StudentDashboard() {
   const { profile, setProfile } = useProfile();
 
@@ -139,7 +126,7 @@ export default function StudentDashboard() {
     return base;
   }, [selectedFocus, primaryFocus]);
 
-  // Announcements stub (if you have /announcements page, link to it)
+  // Announcements stub
   const announcements = [
     {
       id: "ann-1",
@@ -208,7 +195,7 @@ export default function StudentDashboard() {
                 </div>
               </div>
 
-              {/* Simple avatar cluster placeholder (replace with your asset when ready) */}
+              {/* Simple avatar cluster placeholder */}
               <div className="flex items-center">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <div
@@ -339,3 +326,6 @@ export default function StudentDashboard() {
     </div>
   );
 }
+
+
+

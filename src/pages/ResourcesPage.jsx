@@ -9,6 +9,7 @@ import {
   getResource,
 } from "../api/Resources.js";
 
+/* ======= Filters / Data Constants ======= */
 const FORMATS = ["Guide", "Checklist", "Video", "Worksheet"];
 const AUDIENCE = ["Students", "Parents"];
 const GRADES = ["9", "10", "11", "12"];
@@ -50,7 +51,10 @@ const FEATURED = [
   { id: "apprenticeships-101", blurb: "Earn-while-you-learn pathways." },
 ];
 
-export default function ResourcesPage() {
+/* =====================================================
+   Inner content of the Resources page (original UI)
+   ===================================================== */
+function ResourcesContent() {
   const navigate = useNavigate();
 
   // Query + filters
@@ -78,9 +82,7 @@ export default function ResourcesPage() {
         // ignore for demo
       }
     })();
-    return () => {
-      ignore = true;
-    };
+    return () => { ignore = true; };
   }, []);
 
   const params = useMemo(
@@ -92,6 +94,11 @@ export default function ResourcesPage() {
     }),
     [query, audience, grades, formats]
   );
+
+  // keys to satisfy eslint on complex deps
+  const audienceKey = useMemo(() => audience.join(","), [audience]);
+  const gradesKey = useMemo(() => grades.join(","), [grades]);
+  const formatsKey = useMemo(() => formats.join(","), [formats]);
 
   async function runSearch(reset = true, tokenOverride = null) {
     setLoading(true);
@@ -114,12 +121,7 @@ export default function ResourcesPage() {
   useEffect(() => {
     runSearch(true, null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    params.query,
-    params.audience?.join(","),
-    params.grades?.join(","),
-    params.formats?.join(","),
-  ]);
+  }, [params.query, audienceKey, gradesKey, formatsKey]);
 
   function toggleSel(list, setList, value) {
     setList((prev) =>
@@ -146,7 +148,7 @@ export default function ResourcesPage() {
     }
   }
 
-  // Quick actions handlers
+  // Quick actions
   function applyShortcut(preset) {
     setQuery(preset.query ?? "");
     setAudience(preset.audience ?? []);
@@ -180,9 +182,7 @@ export default function ResourcesPage() {
         if (!ignore) setFeaturedErr(e?.message || "Failed to load featured");
       }
     })();
-    return () => {
-      ignore = true;
-    };
+    return () => { ignore = true; };
   }, []);
 
   const showFeatured = !query.trim(); // show when not actively searching
@@ -382,6 +382,7 @@ export default function ResourcesPage() {
   );
 }
 
+/* ======= Small subcomponents used above ======= */
 function FilterGroup({ label, children }) {
   return (
     <div style={{ display: "grid", gap: 6 }}>
@@ -426,6 +427,7 @@ function Badge({ children }) {
   );
 }
 
+/* ======= Inline styles for the inner content ======= */
 const styles = {
   wrap: { maxWidth: 1000, margin: "0 auto", padding: "20px 16px 40px", display: "grid", gap: 12 },
   header: { display: "grid", gap: 10 },
@@ -524,5 +526,19 @@ const styles = {
     fontSize: 14,
   },
 };
+
+/* =====================================================
+   Export: just the inner content (no layout wrapper)
+   ===================================================== */
+export default function ResourcesPage() {
+  return <ResourcesContent />;
+}
+
+
+
+
+
+
+
 
 

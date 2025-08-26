@@ -1,374 +1,412 @@
 // src/pages/SettingsPage.jsx
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useProfile } from "../context/ProfileContext.jsx";
+import { saveProfile, mergeLocalProfile } from "../lib/userApi";
+import { Avatar } from "../components/Avatar.jsx";
 
-/** Resolve API base (window → Vite → CRA → fallback) */
-const API_BASE =
-  (typeof window !== "undefined" && window.API_BASE) ||
-  (typeof import.meta !== "undefined" &&
-    import.meta.env &&
-    import.meta.env.VITE_API_BASE) ||
-  (typeof process !== "undefined" &&
-    process.env &&
-    process.env.REACT_APP_API_BASE) ||
-  "https://lx147yqkva.execute-api.us-east-1.amazonaws.com/demo";
+/** Safe window reference */
+const win = typeof window !== "undefined" ? window : null;
 
-const LS_NOTIFY_KEY = "fp_notify_enabled";
+/** Small UI primitives */
+function Section({ title, subtitle, children, right }) {
+  return (
+    <section className="rounded-2xl border bg-white shadow-sm">
+      <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
+        <div>
+          <div className="text-sm font-semibold">{title}</div>
+          {subtitle ? <div className="text-xs text-slate-600">{subtitle}</div> : null}
+        </div>
+        {right || null}
+      </div>
+      <div className="p-4">{children}</div>
+    </section>
+  );
+}
+function Labeled({ label, hint, children }) {
+  return (
+    <label className="grid gap-1 text-sm">
+      <span className="text-slate-600">{label}</span>
+      {children}
+      {hint ? <span className="text-xs text-slate-500">{hint}</span> : null}
+    </label>
+  );
+}
+function Toggle({ checked, onChange, label, hint }) {
+  return (
+    <div className="flex items-start gap-3">
+      <input
+        type="checkbox"
+        checked={!!checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="mt-0.5 h-4 w-4"
+      />
+      <div className="text-sm">
+        <div className="font-medium">{label}</div>
+        {hint ? <div className="text-xs text-slate-500">{hint}</div> : null}
+      </div>
+    </div>
+  );
+}
+function Select({ value, onChange, children }) {
+  return (
+    <select
+      className="rounded-md border px-3 py-2 text-sm"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    >
+      {children}
+    </select>
+  );
+}
+function Button({ children, onClick, kind = "primary" }) {
+  const base = "rounded-md px-3 py-2 text-sm font-medium";
+  const styles =
+    kind === "primary"
+      ? "bg-black text-white"
+      : kind === "danger"
+      ? "border border-red-300 text-red-700 hover:bg-red-50"
+      : "border hover:bg-gray-50";
+  return (
+    <button type="button" onClick={onClick} className={`${base} ${styles}`}>
+      {children}
+    </button>
+  );
+}
+
+/** Helpers for local settings */
+function getLocal(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw == null ? fallback : JSON.parse(raw);
+  } catch {
+    return fallback;
+  }
+}
+function setLocal(key, val) {
+  try {
+    localStorage.setItem(key, JSON.stringify(val));
+  } catch {}
+}
 
 export default function SettingsPage() {
+  const { profile, setProfile } = useProfile();
   const navigate = useNavigate();
-  const { profile, status, refresh, signOut: ctxSignOut } = useProfile?.() ?? {};
-  const email = profile?.email ?? ""; // used only for API identity (not rendered)
 
-  const [form, setForm] = useState({
-    name: profile?.name || "",
-    grade: profile?.grade || profile?.profile?.grade || "",
-    school: profile?.school || profile?.profile?.school || "",
-    district: profile?.district || profile?.profile?.district || "",
-    careerInterest: joinList(
-      profile?.careerInterest || profile?.profile?.careerInterest || []
-    ),
-  });
+  // ------- Profile form -------
+  const [name, setName] = useState(profile?.name || "");
+  const [grade, setGrade] = useState(profile?.grade || "");
+  const [district, setDistrict] = useState(profile?.district || "");
+  const [phone, setPhone] = useState(profile?.phone || "");
 
-  // Notifications toggle (default from localStorage)
-  const [notifyOn, setNotifyOn] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LS_NOTIFY_KEY);
-      return raw ? raw === "true" : true; // default ON for demo
-    } catch {
-      return true;
-    }
-  });
-
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
-
-  // Pull latest profile/settings from API (without showing email anywhere)
   useEffect(() => {
-    let ignore = false;
-    (async () => {
-      if (!email) return;
-      setLoading(true);
-      setMsg("");
-      try {
-        const res = await fetch(
-          `${API_BASE}/user?email=${encodeURIComponent(email)}`,
-          { headers: { Accept: "application/json" } }
-        );
-        const json = await res.json().catch(() => null);
-        if (!ignore && json?.profile) {
-          setForm({
-            name: json.profile.name || profile?.name || "",
-            grade: json.profile.grade || "",
-            school: json.profile.school || "",
-            district: json.profile.district || "",
-            careerInterest: joinList(json.profile.careerInterest || []),
-          });
-          const apiNotify =
-            json.profile?.settings?.notifications?.enabled ??
-            json.settings?.notifications?.enabled;
-          if (typeof apiNotify === "boolean") {
-            setNotifyOn(apiNotify);
-            try { localStorage.setItem(LS_NOTIFY_KEY, String(apiNotify)); } catch {}
-          }
-        }
-      } catch (e) {
-        if (!ignore) setMsg(e?.message || "Failed to load profile.");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    })();
-    return () => { ignore = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email]);
+    setName(profile?.name || "");
+    setGrade(profile?.grade || "");
+    setDistrict(profile?.district || "");
+    setPhone(profile?.phone || "");
+  }, [profile?.name, profile?.grade, profile?.district, profile?.phone]);
 
-  function onChange(e) {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
-  }
-
-  async function onSave(e) {
-    e.preventDefault();
-    setSaving(true);
-    setMsg("");
-    // Persist toggle locally right away
-    try { localStorage.setItem(LS_NOTIFY_KEY, String(notifyOn)); } catch {}
-
-    // Save to API if we have an email (identity). Email is NOT displayed.
-    if (!email) {
-      setSaving(false);
-      setMsg("Saved locally.");
-      return;
-    }
-
-    const payload = {
-      email,
-      name: form.name || undefined,
-      profile: {
-        grade: form.grade || undefined,
-        school: form.school || undefined,
-        district: form.district || undefined,
-        careerInterest: splitList(form.careerInterest),
-        // keep settings under profile.settings for simplicity
-        settings: { notifications: { enabled: !!notifyOn } },
-      },
-    };
-
+  async function saveProfileForm() {
+    const next = mergeLocalProfile(profile, {
+      name: name.trim() || undefined,
+      grade: grade || undefined,
+      district: district.trim() || undefined,
+      phone: phone.trim() || undefined,
+    });
+    setProfile(next);
     try {
-      const res = await fetch(`${API_BASE}/user`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      await saveProfile({
+        email: next?.email,
+        name: next?.name,
+        grade: next?.grade,
+        district: next?.district,
+        phone: next?.phone,
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setMsg("Saved!");
-      try { await refresh?.(); } catch {}
-    } catch (e) {
-      setMsg(e?.message || "Failed to save.");
-    } finally {
-      setSaving(false);
+    } catch {
+      /* demo: ignore errors */
     }
   }
 
-  function doSignOut() {
+  // ------- Preferences (local only) -------
+  const [notifEnabled, setNotifEnabled] = useState(() =>
+    getLocal("fp_notifications_enabled", true)
+  );
+  const [theme, setTheme] = useState(() => getLocal("fp_theme", "auto")); // auto | light | dark
+  const [density, setDensity] = useState(() => getLocal("fp_density", "comfortable")); // compact | comfortable
+
+  useEffect(() => setLocal("fp_notifications_enabled", !!notifEnabled), [notifEnabled]);
+  useEffect(() => {
+    setLocal("fp_theme", theme);
+    if (!win || !win.document) return;
+    const root = win.document.documentElement;
+    if (theme === "dark") root.classList.add("dark");
+    else if (theme === "light") root.classList.remove("dark");
+    else {
+      // auto
+      const prefers = win.matchMedia && win.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (prefers) root.classList.add("dark");
+      else root.classList.remove("dark");
+    }
+  }, [theme]);
+  useEffect(() => setLocal("fp_density", density), [density]);
+
+  // ------- Security / privacy (demo) -------
+  const lastLogin = useMemo(() => {
     try {
-      // Clear common demo/local keys
-      for (const k of Object.keys(localStorage)) {
-        if (k.startsWith("fp_") || k === "demoEmail") {
-          localStorage.removeItem(k);
-        }
-      }
+      return localStorage.getItem("fp_last_login") || "";
+    } catch {
+      return "";
+    }
+  }, []);
+  function exportData() {
+    const data = {
+      profile,
+      settings: {
+        notifEnabled,
+        theme,
+        density,
+      },
+      localStorageSnapshot: (() => {
+        const out = {};
+        try {
+          Object.keys(localStorage).forEach((k) => {
+            out[k] = localStorage.getItem(k);
+          });
+        } catch {}
+        return out;
+      })(),
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = win?.document?.createElement("a");
+    if (a) {
+      a.href = url;
+      a.download = "futurepath-demo-export.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  }
+  function resetLocal() {
+    try {
+      const keep = localStorage.getItem("demoEmail");
+      localStorage.clear();
+      if (keep) localStorage.setItem("demoEmail", keep);
     } catch {}
-    try { ctxSignOut?.(); } catch {}
+    win?.location?.reload?.();
+  }
+  function signOut() {
+    try {
+      localStorage.removeItem("demoEmail");
+    } catch {}
     navigate("/");
   }
 
-  function clearLocalDemoData() {
-    let cleared = 0;
+  // ------- Demo helpers -------
+  function setDemo(email) {
     try {
-      const keys = Object.keys(localStorage);
-      for (const k of keys) {
-        if (k.startsWith("fp_") || k === "demoEmail") {
-          localStorage.removeItem(k);
-          cleared++;
-        }
-      }
-      setMsg(`Cleared ${cleared} local demo keys.`);
-    } catch {
-      setMsg("Could not clear local storage.");
-    }
+      localStorage.setItem("demoEmail", email);
+    } catch {}
+    win?.location?.reload?.();
   }
 
   return (
-    <div style={styles.wrap}>
-      <h1 style={styles.h1}>Settings</h1>
-
-      <section style={styles.card}>
-        <div style={styles.cardHead}>
-          <div>
-            <div style={styles.kicker}>Profile</div>
-            <div style={styles.sub}>Update your basic information</div>
-          </div>
-          <div style={{ fontSize: 13, color: "#64748b" }}>
-            {status !== "idle" || loading ? "Syncing…" : ""}
+    <div className="mx-auto max-w-6xl p-6">
+      {/* Header */}
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">Settings</h1>
+          <div className="text-sm text-slate-600">
+            Manage your profile, preferences, and demo options.
           </div>
         </div>
+        <Link
+          to="/avatar-builder"
+          className="rounded-full border px-3 py-1.5 text-sm hover:bg-gray-50"
+          title="Open Avatar Builder"
+        >
+          Open Avatar Builder
+        </Link>
+      </div>
 
-        <form onSubmit={onSave} style={styles.formGrid}>
-          {/* No email field rendered */}
-          <Field label="Name">
-            <input
-              name="name"
-              value={form.name}
-              onChange={onChange}
-              placeholder="Your name"
-              style={styles.input}
-            />
-          </Field>
-          <Field label="Grade">
-            <input
-              name="grade"
-              value={form.grade}
-              onChange={onChange}
-              placeholder="11"
-              style={styles.input}
-            />
-          </Field>
-          <Field label="School">
-            <input
-              name="school"
-              value={form.school}
-              onChange={onChange}
-              placeholder="Riverside High"
-              style={styles.input}
-            />
-          </Field>
-          <Field label="District">
-            <input
-              name="district"
-              value={form.district}
-              onChange={onChange}
-              placeholder="Riverside USD"
-              style={styles.input}
-            />
-          </Field>
-          <Field label="Career Interests (comma-separated)">
-            <input
-              name="careerInterest"
-              value={form.careerInterest}
-              onChange={onChange}
-              placeholder="Electrician, Product Manager"
-              style={styles.input}
-            />
-          </Field>
-
-          {/* Notifications */}
-          <div style={{ ...styles.row, gridColumn: "1 / -1" }}>
-            <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <input
-                type="checkbox"
-                checked={notifyOn}
-                onChange={(e) => setNotifyOn(e.target.checked)}
-              />
-              <span style={{ fontWeight: 600 }}>Enable in-app notifications</span>
-            </label>
-            <span style={{ fontSize: 12, color: "#64748b" }}>
-              (Used for nudges and reminders inside the app—no emails sent.)
-            </span>
-          </div>
-
-          <div style={styles.actions}>
-            <button
-              type="submit"
-              disabled={saving}
-              style={styles.primaryBtn}
-              title="Save profile"
-            >
-              {saving ? "Saving…" : "Save changes"}
-            </button>
-            {msg ? <span style={styles.msg}>{msg}</span> : null}
-          </div>
-        </form>
-      </section>
-
-      <section style={styles.card}>
-        <div style={styles.cardHead}>
-          <div>
-            <div style={styles.kicker}>Account</div>
-            <div style={styles.sub}>Sign out or clear local demo data</div>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <button type="button" onClick={doSignOut} style={styles.secondaryBtn}>
-            Sign out
-          </button>
-          <button
-            type="button"
-            onClick={clearLocalDemoData}
-            style={styles.dangerBtn}
-            title="Remove local demo caches (tasks, selections, etc.)"
+      <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+        {/* Main column */}
+        <div className="grid gap-4">
+          {/* Profile */}
+          <Section
+            title="Profile"
+            subtitle="These details appear on your dashboards"
+            right={<Button onClick={saveProfileForm}>Save changes</Button>}
           >
-            Clear local demo data
-          </button>
+            <div className="grid items-start gap-4 md:grid-cols-[120px_1fr]">
+              <div className="grid place-items-center gap-2">
+                <div className="h-24 w-24 overflow-hidden rounded-2xl ring-1 ring-slate-200">
+                  <Avatar size={96} />
+                </div>
+                <Link
+                  to="/avatar-builder"
+                  className="rounded-md border px-2 py-1 text-xs hover:bg-gray-50"
+                >
+                  Edit Avatar
+                </Link>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Labeled label="Name">
+                  <input
+                    className="rounded-md border px-3 py-2"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                  />
+                </Labeled>
+                <Labeled label="Grade" hint="e.g., 10, 11, 12">
+                  <input
+                    className="rounded-md border px-3 py-2"
+                    value={grade}
+                    onChange={(e) => setGrade(e.target.value)}
+                    placeholder="11"
+                  />
+                </Labeled>
+                <Labeled label="District" className="sm:col-span-2">
+                  <input
+                    className="rounded-md border px-3 py-2"
+                    value={district}
+                    onChange={(e) => setDistrict(e.target.value)}
+                    placeholder="Your district"
+                  />
+                </Labeled>
+                <Labeled label="Phone (optional)" className="sm:col-span-2">
+                  <input
+                    className="rounded-md border px-3 py-2"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="(555) 123-4567"
+                  />
+                </Labeled>
+              </div>
+            </div>
+          </Section>
+
+          {/* Preferences */}
+          <Section title="Preferences" subtitle="Local settings saved on this device">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Toggle
+                checked={notifEnabled}
+                onChange={setNotifEnabled}
+                label="Enable in-app notifications"
+                hint="We will not send emails — only in-app alerts."
+              />
+              <div className="grid gap-1 text-sm">
+                <div className="text-slate-600">Theme</div>
+                <Select value={theme} onChange={setTheme}>
+                  <option value="auto">Auto (system)</option>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                </Select>
+                <div className="text-xs text-slate-500">
+                  Auto follows your OS appearance where supported.
+                </div>
+              </div>
+              <div className="grid gap-1 text-sm">
+                <div className="text-slate-600">Dashboard density</div>
+                <Select value={density} onChange={setDensity}>
+                  <option value="comfortable">Comfortable</option>
+                  <option value="compact">Compact</option>
+                </Select>
+              </div>
+              <div className="grid content-end">
+                <Button kind="secondary" onClick={() => resetLocal()}>
+                  Reset local settings
+                </Button>
+              </div>
+            </div>
+          </Section>
+
+          {/* Privacy & Security */}
+          <Section title="Privacy & Security" subtitle="Demo-only utilities">
+            <div className="grid gap-3">
+              <div className="text-sm">
+                <span className="text-slate-600">Signed in as</span>{" "}
+                <span className="font-semibold">{profile?.email || "demo user"}</span>
+              </div>
+              {lastLogin ? (
+                <div className="text-xs text-slate-500">Last login: {lastLogin}</div>
+              ) : null}
+
+              <div className="flex flex-wrap gap-2">
+                <Button kind="secondary" onClick={exportData}>
+                  Export my data (JSON)
+                </Button>
+                <Button kind="danger" onClick={resetLocal}>
+                  Clear local data
+                </Button>
+                <Button kind="danger" onClick={signOut}>
+                  Sign out
+                </Button>
+              </div>
+            </div>
+          </Section>
+
+          {/* Developer / Demo helpers */}
+          <Section title="Demo Helpers" subtitle="Swap between seeded identities quickly">
+            <div className="flex flex-wrap items-center gap-2">
+              <Button kind="secondary" onClick={() => setDemo("student@example.com")}>
+                Use Student (demo)
+              </Button>
+              <Button kind="secondary" onClick={() => setDemo("parent@example.com")}>
+                Use Parent (demo)
+              </Button>
+              <Button kind="secondary" onClick={() => setDemo("jordan@example.com")}>
+                Use Jordan (demo)
+              </Button>
+            </div>
+          </Section>
         </div>
-      </section>
+
+        {/* Right rail */}
+        <div className="grid gap-4">
+          <Section title="Account">
+            <div className="grid gap-3 text-sm">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 overflow-hidden rounded-xl ring-1 ring-slate-200">
+                  <Avatar size={48} />
+                </div>
+                <div>
+                  <div className="font-semibold">{profile?.name || "Student"}</div>
+                  <div className="text-slate-600">{profile?.email || "demo@futurepath"}</div>
+                </div>
+              </div>
+              <div className="text-xs text-slate-500">
+                Avatars, not photos, are shown in this demo. You can customize yours in the Avatar
+                Builder.
+              </div>
+              <Link
+                to="/avatar-builder"
+                className="w-fit rounded-md border px-3 py-1.5 text-sm hover:bg-gray-50"
+              >
+                Customize Avatar
+              </Link>
+            </div>
+          </Section>
+
+          <Section title="Shortcuts">
+            <div className="grid gap-2 text-sm">
+              <Link to="/student" className="text-blue-600 underline">
+                Go to Dashboard
+              </Link>
+              <Link to="/resources" className="text-blue-600 underline">
+                Browse Resources
+              </Link>
+              <Link to="/bookmarks" className="text-blue-600 underline">
+                View Bookmarks
+              </Link>
+            </div>
+          </Section>
+        </div>
+      </div>
     </div>
   );
 }
 
-/* ---------------- helpers ---------------- */
-function joinList(arr) {
-  if (!Array.isArray(arr)) return "";
-  return arr.join(", ");
-}
-function splitList(s) {
-  if (!s) return [];
-  return String(s)
-    .split(",")
-    .map((x) => x.trim())
-    .filter(Boolean);
-}
 
-/* ---------------- small UI bits ---------------- */
-function Field({ label, children }) {
-  return (
-    <label style={{ display: "grid", gap: 4 }}>
-      <span style={styles.label}>{label}</span>
-      {children}
-    </label>
-  );
-}
-
-const styles = {
-  wrap: { maxWidth: 900, margin: "0 auto", padding: "20px 16px 40px", display: "grid", gap: 16 },
-  h1: { margin: 0, fontSize: 24, color: "#0f172a" },
-
-  card: {
-    background: "white",
-    border: "1px solid #e2e8f0",
-    borderRadius: 14,
-    padding: 14,
-    display: "grid",
-    gap: 12,
-  },
-  cardHead: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "baseline",
-  },
-  kicker: { fontSize: 12, color: "#64748b", textTransform: "uppercase", letterSpacing: 0.6 },
-  sub: { fontSize: 13, color: "#475569" },
-
-  formGrid: {
-    display: "grid",
-    gap: 10,
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-  },
-  row: { display: "flex", gap: 10, alignItems: "center" },
-
-  label: { fontSize: 12, color: "#64748b" },
-  input: {
-    padding: "8px 10px",
-    borderRadius: 10,
-    border: "1px solid #cbd5e1",
-    fontSize: 14,
-    background: "white",
-  },
-  actions: { gridColumn: "1 / -1", display: "flex", gap: 10, alignItems: "center" },
-
-  primaryBtn: {
-    padding: "8px 12px",
-    borderRadius: 10,
-    border: "1px solid #0ea5e9",
-    background: "#0ea5e9",
-    color: "white",
-    cursor: "pointer",
-    fontSize: 14,
-    fontWeight: 600,
-  },
-  secondaryBtn: {
-    padding: "8px 12px",
-    borderRadius: 10,
-    border: "1px solid #cbd5e1",
-    background: "white",
-    color: "#0f172a",
-    cursor: "pointer",
-    fontSize: 14,
-    fontWeight: 600,
-  },
-  dangerBtn: {
-    padding: "8px 12px",
-    borderRadius: 10,
-    border: "1px solid #fecaca",
-    background: "#fff1f2",
-    color: "#991b1b",
-    cursor: "pointer",
-    fontSize: 14,
-    fontWeight: 700,
-  },
-  msg: { fontSize: 13, color: "#065f46" },
-};
 

@@ -1,10 +1,169 @@
-/* Minimal baseline so the import exists and the build works */
+/* =========================================
+   FuturePath Global Styles (fp-*)
+   - Restores branded gradient background
+   - Forces vertical sidebar + right-aligned user info
+   ========================================= */
+
+/* Optional brand font */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap");
+
+/* Reset / base */
 html, body, #root { height: 100%; margin: 0; }
 *, *::before, *::after { box-sizing: border-box; }
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
-               "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  background: #f8fafc; /* light gray */
-  color: #111827;      /* near-black */
+  font-family: "Raleway", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+               "Noto Sans", "Helvetica Neue", Arial;
+  color: #0f172a;
+  /* Branded gradient background (light blue -> teal -> white) */
+  background: linear-gradient(135deg, #e6f0ff 0%, #e9fff8 45%, #ffffff 100%);
+  background-attachment: fixed;
 }
-a { color: inherit; text-decoration: none; }
+
+/* Theme tokens */
+:root {
+  --fp-bg: #ffffff;
+  --fp-bg-muted: rgba(255, 255, 255, 0.7);
+  --fp-muted: #f1f5f9;
+  --fp-line: #e5e7eb;
+  --fp-brand: #0ea5e9;
+  --fp-brand-ink: #0369a1;
+  --fp-ink: #0f172a;
+  --fp-ink-2: #475569;
+  --fp-radius: 12px;
+  --fp-shadow: 0 10px 20px rgba(2, 6, 23, 0.06), 0 2px 6px rgba(2, 6, 23, 0.04);
+}
+
+/* App shell */
+.fp-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: transparent; /* let gradient show */
+}
+
+/* ===== Top bar ===== */
+.fp-topbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--fp-line);
+  backdrop-filter: blur(6px);
+  background: var(--fp-bg-muted);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.fp-topbar-left { display: flex; align-items: center; gap: 10px; }
+.fp-topbar-title { margin: 0; font-size: 18px; font-weight: 700; color: var(--fp-ink); }
+.fp-topbar-spacer { flex: 1 1 auto; min-width: 8px; }
+.fp-topbar-right { display: block !important; margin-left: auto !important; }
+
+.fp-user { display: inline-flex !important; align-items: center !important; gap: 12px; text-align: right; }
+.fp-user-meta { line-height: 1.15; }
+.fp-user-name { font-weight: 600; color: var(--fp-ink); }
+.fp-user-role { font-size: 12px; color: var(--fp-ink-2); }
+.fp-user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 9999px;
+  background: #eef6ff;
+  border: 1px solid var(--fp-line);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; color: var(--fp-brand-ink);
+}
+
+/* ===== Body layout ===== */
+.fp-body {
+  display: grid !important;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: 0;
+  flex: 1;
+}
+
+/* ===== Sidebar ===== */
+.fp-sidebar {
+  border-right: 1px solid var(--fp-line);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+  padding: 16px;
+}
+.fp-nav { width: 100%; }
+
+/* Kill floats / row layouts from any other CSS */
+.fp-nav-list, .fp-nav-list * { float: none !important; }
+
+/* FORCE vertical stack */
+.fp-nav-list {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.fp-nav-item { width: 100% !important; display: block !important; }
+
+.fp-nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 10px 12px !important;
+  border-radius: var(--fp-radius) !important;
+  white-space: nowrap !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--fp-ink) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+.fp-nav-link:hover { background: var(--fp-muted) !important; border-color: var(--fp-line) !important; }
+.fp-nav-link--active { background: #e0f2fe !important; border-color: #bae6fd !important; color: var(--fp-brand-ink) !important; }
+.fp-nav-icon { display: inline-flex; width: 18px; height: 18px; align-items: center; justify-content: center; }
+
+/* ===== Main content ===== */
+.fp-content {
+  padding: 24px;
+  min-width: 0;
+  background: transparent; /* let gradient show; your cards are solid */
+}
+
+/* Utilities for quick content cards (if you use them) */
+.fp-container { max-width: 1100px; }
+.fp-h2 { margin: 0 0 6px 0; font-size: 22px; font-weight: 700; }
+.fp-h3 { margin: 0 0 8px 0; font-size: 16px; font-weight: 700; }
+.fp-muted { color: var(--fp-ink-2); }
+.fp-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 16px; }
+.fp-card { background: #fff; border: 1px solid var(--fp-line); border-radius: var(--fp-radius); padding: 16px; box-shadow: var(--fp-shadow); }
+
+/* ===== Responsive ===== */
+@media (max-width: 960px) {
+  .fp-body { grid-template-columns: 220px 1fr; }
+}
+@media (max-width: 820px) {
+  .fp-body { grid-template-columns: 1fr; }
+  .fp-sidebar { border-right: none; border-bottom: 1px solid var(--fp-line); }
+}
+
+/* ==========================================================
+   ENFORCEMENT OVERRIDES (so the new layout always wins)
+   These target the App.jsx layout hooks.
+   ========================================================== */
+[data-layout="fp-new"] > aside[aria-label="Primary"] nav {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+[data-layout="fp-new"] > aside[aria-label="Primary"] nav > a,
+[data-layout="fp-new"] > aside[aria-label="Primary"] nav > button {
+  display: flex !important;
+  width: 100% !important;
+}
+aside[data-rail="fp-user-right"] {
+  position: fixed !important;
+  right: 0 !important;
+  left: auto !important;
+}
+
+

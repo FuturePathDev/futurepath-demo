@@ -1,8 +1,8 @@
-// src/pages/ParentDashboard.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProfile } from "../context/ProfileContext.jsx";
 import FocusCareerCard from "../components/FocusCareerCard.jsx";
+import DashboardSearchBar from "../components/DashboardSearchBar.jsx";
 
 /** Resolve API base (window → Vite → CRA → fallback) */
 const API_BASE =
@@ -156,7 +156,7 @@ export default function ParentDashboard() {
     return () => { ignore = true; };
   }, [parentEmail]);
 
-  // Select a default child *after* children load, if none is selected
+  // Select a default child after children load, if none is selected
   useEffect(() => {
     if (!childEmail && children.length) {
       setChildEmail(children[0].email);
@@ -189,7 +189,6 @@ export default function ParentDashboard() {
     const existing = children.find((c) => c.email.toLowerCase() === e.toLowerCase());
     let next;
     if (existing) {
-      // update name if provided
       next = children.map((c) =>
         c.email.toLowerCase() === e.toLowerCase()
           ? { ...c, name: c.name || entry.name }
@@ -235,7 +234,7 @@ export default function ParentDashboard() {
     persistChildren(next);
   }
 
-  // Load child profile (name, district, grade, focus) from API
+  // Load child profile
   const [childProfile, setChildProfile] = useState(null);
 
   useEffect(() => {
@@ -300,6 +299,11 @@ export default function ParentDashboard() {
         </div>
       </div>
 
+      {/* Dashboard search */}
+      <div style={{ margin: "6px 0 10px" }}>
+        <DashboardSearchBar />
+      </div>
+
       {/* Children manager */}
       <section style={styles.selectorCard}>
         <div style={styles.selectorRow}>
@@ -353,11 +357,7 @@ export default function ParentDashboard() {
                   <button
                     type="button"
                     onClick={() => setChildEmail(c.email)}
-                    style={{
-                      ...styles.chip,
-                      ...(selected ? styles.chipActive : null),
-                    }}
-                    
+                    style={{ ...styles.chip, ...(selected ? styles.chipActive : null) }}
                   >
                     {c.name || "Student"}
                   </button>
@@ -396,7 +396,16 @@ export default function ParentDashboard() {
 
         {/* Rename selected child */}
         {selectedChild ? (
-          <div style={{ padding: 12, borderTop: "1px dashed #e2e8f0", display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <div
+            style={{
+              padding: 12,
+              borderTop: "1px dashed #e2e8f0",
+              display: "flex",
+              gap: 8,
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
             <div style={{ fontSize: 13, color: "#475569" }}>
               Display name for selected student
             </div>
